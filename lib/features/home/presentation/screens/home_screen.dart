@@ -10,10 +10,15 @@
  * - ID: 1 | Modified on: 25/11/2025 |
  * Modified by: Gamaliel Alejandro Juarez |
  * Description: Main screen layout |
+ * - ID: 2 | Modified on: 30/11/2025 |
+ * Modified by: Carlos Adair Bautista Godinez |
+ * Description: Standarization of icons |
  */
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:qparking/core/icons/app_icons.dart';
+import 'package:qparking/core/widgets/app_icon.dart';
 import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/slide_menu.dart';
 
@@ -41,7 +46,7 @@ class HomeScreen extends ConsumerWidget {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.notifications_none, color: AppTheme.white),
+            icon: AppIcon(name: AppIconName.notification),
             onPressed: () {},
           ),
           Padding(
@@ -114,10 +119,9 @@ class HomeScreen extends ConsumerWidget {
                 ),
                 child: Column(
                   children: [
-                    const Icon(
-                      Icons.qr_code_scanner,
-                      size: 48,
-                      color: AppTheme.primary,
+                    IconTheme(
+                      data: IconTheme.of(context).copyWith(size: 48.0),
+                      child: AppIcon(name: AppIconName.qrCode),
                     ),
                     const SizedBox(height: 16),
                     const Text(
@@ -137,7 +141,7 @@ class HomeScreen extends ConsumerWidget {
                         onPressed: () {
                           context.push('/qr_generator');
                         },
-                        icon: const Icon(Icons.qr_code_2, size: 20),
+                        icon: AppIcon(name: AppIconName.qrCode),
                         label: const Text('Generar Código QR'),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppTheme.primary,

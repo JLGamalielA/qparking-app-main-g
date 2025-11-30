@@ -10,6 +10,9 @@
  * - ID: 1 | Modified on: 25/11/2025 |
  * Modified by: Gamaliel Alejandro Juarez |
  * Description: Adaptation to programming manual standards |
+ * - ID: 2 | Modified on: 30/11/2025 |
+ * Modified by: Carlos Adair Bautista Godinez |
+ * Description: Standarization of icons |
  */
 
 
@@ -17,6 +20,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/themes/app_theme.dart';
+import '../../../../core/widgets/app_icon.dart';
+import '../../../../core/icons/app_icons.dart';
 
 final loginLoadingProvider = StateProvider.autoDispose<bool>((ref) => false);
 final obscurePasswordProvider = StateProvider.autoDispose<bool>((ref) => true);
@@ -117,7 +122,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       style: const TextStyle(fontSize: 16, color: AppTheme.gray900),
                       decoration: const InputDecoration(
                         labelText: 'Correo Electrónico',
-                        prefixIcon: Icon(Icons.email_outlined),
+                        prefixIcon: AppIcon(name: AppIconName.email),
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -138,7 +143,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       style: const TextStyle(fontSize: 16, color: AppTheme.gray900),
                       decoration: InputDecoration(
                         labelText: 'Contraseña',
-                        prefixIcon: const Icon(Icons.lock_outline)
+                        prefixIcon: AppIcon(name: AppIconName.lock),
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {

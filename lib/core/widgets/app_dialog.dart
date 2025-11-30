@@ -10,10 +10,15 @@
  * - ID: 1 | Modified on: 27/11/2025 |
  * Modified by: Gamaliel Alejandro Juarez Loyde |
  * Description: Generic Dialog component implementation  |
+ * - ID: 2 | Modified on: 30/11/2025 |
+ * Modified by: Carlos Adair Bautista Godinez |
+ * Description: Standarization of icons |
  */
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:qparking/core/icons/app_icons.dart';
+import 'package:qparking/core/widgets/app_icon.dart';
 import '../themes/app_theme.dart';
 
 enum DialogType { warning, info, success, error, question }
@@ -42,7 +47,7 @@ class AppDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     Color iconColor;
     Color iconBgColor;
-    IconData iconData;
+    AppIconName iconName;
     String defaultBtnText;
 
     // Mapping types
@@ -50,31 +55,31 @@ class AppDialog extends StatelessWidget {
       case DialogType.warning:
         iconColor = AppTheme.warning;
         iconBgColor = AppTheme.warning.withOpacity(0.1);
-        iconData = Icons.warning_amber_rounded;
+        iconName = AppIconName.warning;
         defaultBtnText = 'Entiendo';
         break;
       case DialogType.info:
         iconColor = AppTheme.info;
         iconBgColor = AppTheme.info.withOpacity(0.1);
-        iconData = Icons.info_outline_rounded;
+        iconName = AppIconName.info;
         defaultBtnText = 'Entendido';
         break;
       case DialogType.success:
         iconColor = AppTheme.success;
         iconBgColor = AppTheme.success.withOpacity(0.1);
-        iconData = Icons.check_circle_outline_rounded;
+        iconName = AppIconName.success;
         defaultBtnText = 'Aceptar';
         break;
       case DialogType.error:
         iconColor = AppTheme.danger;
         iconBgColor = AppTheme.danger.withOpacity(0.1);
-        iconData = Icons.error_outline_rounded;
+        iconName = AppIconName.error;
         defaultBtnText = 'Cerrar';
         break;
       case DialogType.question:
         iconColor = AppTheme.primary;
         iconBgColor = AppTheme.primary.withOpacity(0.1);
-        iconData = Icons.help_outline_rounded;
+        iconName = AppIconName.help;
         defaultBtnText = 'Continuar';
         break;
     }

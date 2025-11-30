@@ -5,10 +5,17 @@
  * Created on: 25/11/2025
  * Created by: Gamaliel Alejandro Juarez Loyde
  * Approved by: Daniel Yair Mendoza Alvarez
+ *
+ * Changelog:
+ * - ID: 2 | Modified on: 30/11/2025 |
+ * Modified by: Carlos Adair Bautista Godinez |
+ * Description: Standarization of icons |
  */
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:qparking/core/widgets/app_icon.dart';
+import '../../../../core/icons/app_icons.dart';
 import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/app_dialog.dart';
 
@@ -34,8 +41,9 @@ class ProfileScreen extends ConsumerWidget {
         backgroundColor: AppTheme.primary,
         elevation: 0,
         centerTitle: true,
+        iconTheme: const IconThemeData(color: AppTheme.white),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppTheme.white),
+          icon: AppIcon(name: AppIconName.back),
           onPressed: () => context.pop(),
         ),
         title: const Text(
@@ -44,7 +52,7 @@ class ProfileScreen extends ConsumerWidget {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.notifications_none, color: AppTheme.white),
+            icon: AppIcon(name: AppIconName.notification),
             onPressed: () {},
           ),
           Padding(
@@ -124,7 +132,7 @@ class ProfileScreen extends ConsumerWidget {
                   children: [
                     Row(
                       children: [
-                        const Icon(Icons.workspace_premium, color: AppTheme.warning, size: 36),
+                        AppIcon(name: AppIconName.medal),
                         const SizedBox(width: 16),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -145,7 +153,7 @@ class ProfileScreen extends ConsumerWidget {
                           onPressed: () {
                           },
                           style: ElevatedButton.styleFrom(backgroundColor: AppTheme.primary, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
-                          icon: const Icon(Icons.upgrade, size: 18),
+                          icon: AppIcon(name: AppIconName.uploadArrow),
                           label: const Text('Cambiar plan'),
                         ),
                       ),

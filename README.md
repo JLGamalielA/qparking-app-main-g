@@ -7,7 +7,7 @@ Requisitos Previos:
 
 Guía de Instalación y Ejecución:
 1. Clonar el repositorio:
-    git clone [https://github.com/TU_USUARIO/qparking-app.git](https://github.com/TU_USUARIO/qparking-app.git)
+    git clone [https://github.com/JLGamalielA/qparking-app.git](https://github.com/JLGamalielA/qparking-app.git)
     cd qparking-app
 2. Instalar dependencias:
    flutter pub get

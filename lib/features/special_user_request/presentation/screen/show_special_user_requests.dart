@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qparking/core/constants/constants_exports.dart';
+import 'package:qparking/core/icons/app_icons.dart';
+import 'package:qparking/core/widgets/app_icon.dart';
 
 class ShowSpecialUserRequests extends StatelessWidget {
   const ShowSpecialUserRequests({super.key});
@@ -68,7 +70,7 @@ class ShowSpecialUserRequests extends StatelessWidget {
                   onPressed: () {
                     context.push('/create_special_user_request');
                   },
-                  icon: const Icon(Icons.add, size: 24),
+                  icon: AppIcon(name: AppIconName.add),
                   label: const Text(
                     'Crear solicitud',
                     style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
@@ -152,7 +154,7 @@ class _RequestCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                _CircleIcon(icon: Icons.person),
+                AppIcon(name: AppIconName.user),
                 const SizedBox(width: 16),
                 const Text(
                   'Tipo de usuario',

@@ -10,11 +10,16 @@
  * - ID: 1 | Modified on: 25/11/2025 |
  * Modified by: Gamaliel Alejandro Juarez |
  * Description: UI standardization  (Forms & Layout) |
+ * - ID: 2 | Modified on: 30/11/2025 |
+ * Modified by: Carlos Adair Bautista Godinez |
+ * Description: Standarization of icons |
  */
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:qparking/core/icons/app_icons.dart';
+import 'package:qparking/core/widgets/app_icon.dart';
 import '../../../../../core/themes/app_theme.dart';
 
 // Local provider
@@ -72,7 +77,7 @@ class _RegisterNormalUserScreenState extends ConsumerState<RegisterNormalUserScr
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppTheme.primary),
+          icon: AppIcon(name: AppIconName.back),
           onPressed: () => context.pop(),
         ),
         title: const Text(

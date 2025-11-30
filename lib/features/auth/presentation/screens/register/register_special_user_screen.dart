@@ -10,12 +10,17 @@
  * - ID: 1 | Modified on: 25/11/2025 |
  * Modified by: Gamaliel Alejandro Juarez |
  * Description: UI standardization  (Forms & Layout) |
+ * - ID: 2 | Modified on: 30/11/2025 |
+ * Modified by: Carlos Adair Bautista Godinez |
+ * Description: Standarization of icons and form corrections |
  */
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../../core/icons/app_icons.dart';
 import '../../../../../core/themes/app_theme.dart';
+import '../../../../../core/widgets/app_icon.dart';
 
 final specialRegisterLoadingProvider = StateProvider.autoDispose<bool>((ref) => false);
 
@@ -28,20 +33,27 @@ class RegisterSpecialUserScreen extends ConsumerStatefulWidget {
 
 class _RegisterSpecialUserScreenState extends ConsumerState<RegisterSpecialUserScreen> {
   // Business Controllers
-  final _companyNameCtrl = TextEditingController();
-  final _rfcCtrl = TextEditingController();
+  final _nameCtrl = TextEditingController();
   final _emailCtrl = TextEditingController();
+  final _phoneCtrl = TextEditingController();
   final _passCtrl = TextEditingController();
+  final _confirmPassCtrl = TextEditingController();
+  final _parkingCtrl = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
   bool _isObscure = true;
 
+  //Provisional
+  List<String> _parkingOptions = [];
+  String? _selectedParking;
+
   @override
   void dispose() {
-    _companyNameCtrl.dispose();
-    _rfcCtrl.dispose();
+    _nameCtrl.dispose();
     _emailCtrl.dispose();
+    _phoneCtrl.dispose();
     _passCtrl.dispose();
+    _confirmPassCtrl.dispose();
     super.dispose();
   }
 
@@ -65,7 +77,7 @@ class _RegisterSpecialUserScreenState extends ConsumerState<RegisterSpecialUserS
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppTheme.primary),
+          icon: AppIcon(name: AppIconName.back),
           onPressed: () => context.pop(),
         ),
         title: const Text(
@@ -111,52 +123,52 @@ class _RegisterSpecialUserScreenState extends ConsumerState<RegisterSpecialUserS
                     ),
                     const SizedBox(height: 8),
                     const Text(
-                      'Ingresa los datos de la empresa o convenio.',
+                      'Completa tus datos personales para comenzar.',
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 14, color: AppTheme.gray600),
+                      style: TextStyle(
+                          fontSize: 14,
+                          color: AppTheme.gray600
+                      ),
                     ),
                     const SizedBox(height: 32),
 
-                    // Input: Company Name
+                    // Input: Full Name
                     SizedBox(
                       height: 60,
                       child: TextFormField(
-                        controller: _companyNameCtrl,
+                        controller: _nameCtrl,
                         decoration: const InputDecoration(
-                          labelText: 'Razón Social / Empresa',
-                          prefixIcon: Icon(Icons.business),
+                          labelText: 'Nombre Completo',
                         ),
                         validator: (v) => v!.isEmpty ? 'Campo requerido' : null,
                       ),
                     ),
                     const SizedBox(height: 20),
 
-                    // Input: RFC / Tax ID
-                    SizedBox(
-                      height: 60,
-                      child: TextFormField(
-                        controller: _rfcCtrl,
-                        textCapitalization: TextCapitalization.characters,
-                        decoration: const InputDecoration(
-                          labelText: 'RFC / Identificación Fiscal',
-                          prefixIcon: Icon(Icons.badge_outlined),
-                        ),
-                        validator: (v) => v!.length < 12 ? 'RFC incompleto' : null,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-
-                    // Input: Contact Email
+                    // Input: Email
                     SizedBox(
                       height: 60,
                       child: TextFormField(
                         controller: _emailCtrl,
                         keyboardType: TextInputType.emailAddress,
                         decoration: const InputDecoration(
-                          labelText: 'Correo de Contacto',
-                          prefixIcon: Icon(Icons.email_outlined),
+                          labelText: 'Correo Electrónico',
                         ),
                         validator: (v) => v!.contains('@') ? null : 'Correo inválido',
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+
+                    // Input: Phone
+                    SizedBox(
+                      height: 60,
+                      child: TextFormField(
+                        controller: _phoneCtrl,
+                        keyboardType: TextInputType.phone,
+                        decoration: const InputDecoration(
+                          labelText: 'Teléfono',
+                        ),
+                        validator: (v) => v!.length < 10 ? 'Teléfono inválido' : null,
                       ),
                     ),
                     const SizedBox(height: 20),
@@ -168,13 +180,66 @@ class _RegisterSpecialUserScreenState extends ConsumerState<RegisterSpecialUserS
                         controller: _passCtrl,
                         obscureText: _isObscure,
                         decoration: InputDecoration(
-                          labelText: 'Contraseña de Acceso',
-                          prefixIcon: const Icon(Icons.lock_outline),
+                          labelText: 'Contraseña',
                         ),
                         validator: (v) => v!.length < 6 ? 'Mínimo 6 caracteres' : null,
                       ),
                     ),
-                    const SizedBox(height: 32),
+                    const SizedBox(height: 20),
+
+                    // Input: Confirm Password
+                    SizedBox(
+                      height: 60,
+                      child: TextFormField(
+                        controller: _confirmPassCtrl,
+                        obscureText: _isObscure,
+                        decoration: const InputDecoration(
+                          labelText: 'Confirmar Contraseña',
+                        ),
+                        validator: (v) {
+                          if (v != _passCtrl.text) return 'Las contraseñas no coinciden';
+                          return null;
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+
+                    SizedBox(
+                      height: 60,
+                      child: DropdownButtonFormField<String>(
+                        value: _selectedParking,
+                        isExpanded: true,
+                        decoration: InputDecoration(
+                          labelText: _parkingOptions.isEmpty
+                              ? 'Estacionamiento'
+                              : 'Estacionamiento',
+                          enabled: _parkingOptions.isNotEmpty,
+                          border: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                          ),
+                        ),
+                        hint: const Text('Seleccionar'),
+                        items: _parkingOptions.map((String option) {
+                          return DropdownMenuItem(
+                            value: option,
+                            child: Text(option),
+                          );
+                        }).toList(),
+                        onChanged: _parkingOptions.isEmpty ? null : (String? newValue) {
+                          setState(() {
+                            _selectedParking = newValue;
+                            _parkingCtrl.text = newValue ?? '';
+                          });
+                        },
+                        validator: (value) {
+                          if (_parkingOptions.isEmpty) {
+                            return 'Sin registros para seleccionar.';
+                          }
+                          return value == null || value.isEmpty ? 'Selección requerida' : null;
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 20),
 
                     // Action Button
                     SizedBox(
@@ -189,7 +254,7 @@ class _RegisterSpecialUserScreenState extends ConsumerState<RegisterSpecialUserS
                         ),
                         child: isLoading
                             ? const CircularProgressIndicator(color: AppTheme.white)
-                            : const Text('Registrar Empresa'),
+                            : const Text('Registrarse'),
                       ),
                     ),
                   ],
