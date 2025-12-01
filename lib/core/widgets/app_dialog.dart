@@ -49,6 +49,8 @@ class AppDialog extends StatelessWidget {
     Color iconBgColor;
     AppIconName iconName;
     String defaultBtnText;
+    Color primaryBtnColor;
+
 
     // Mapping types
     switch (type) {
@@ -56,31 +58,36 @@ class AppDialog extends StatelessWidget {
         iconColor = AppTheme.warning;
         iconBgColor = AppTheme.warning.withOpacity(0.1);
         iconName = AppIconName.warning;
-        defaultBtnText = 'Entiendo';
+        defaultBtnText = 'Revisar';
+        primaryBtnColor = AppTheme.primary;
         break;
       case DialogType.info:
         iconColor = AppTheme.info;
         iconBgColor = AppTheme.info.withOpacity(0.1);
         iconName = AppIconName.info;
         defaultBtnText = 'Entendido';
+        primaryBtnColor = AppTheme.primary;
         break;
       case DialogType.success:
         iconColor = AppTheme.success;
         iconBgColor = AppTheme.success.withOpacity(0.1);
         iconName = AppIconName.success;
         defaultBtnText = 'Aceptar';
+        primaryBtnColor = AppTheme.primary;
         break;
       case DialogType.error:
         iconColor = AppTheme.danger;
         iconBgColor = AppTheme.danger.withOpacity(0.1);
         iconName = AppIconName.error;
         defaultBtnText = 'Cerrar';
+        primaryBtnColor = AppTheme.danger;
         break;
       case DialogType.question:
         iconColor = AppTheme.primary;
         iconBgColor = AppTheme.primary.withOpacity(0.1);
         iconName = AppIconName.help;
         defaultBtnText = 'Continuar';
+        primaryBtnColor = AppTheme.primary;
         break;
     }
 
@@ -112,7 +119,7 @@ class AppDialog extends StatelessWidget {
                 color: iconBgColor,
                 shape: BoxShape.circle,
               ),
-              child: Icon(iconData, size: 40, color: iconColor),
+              child: AppIcon(name: iconName, color: iconColor, size: 28),
             ),
             const SizedBox(height: 24),
 
@@ -131,7 +138,7 @@ class AppDialog extends StatelessWidget {
             // Description / Microcopy
             Text(
               description,
-              textAlign: TextAlign.center,
+              textAlign: TextAlign.left,
               style: const TextStyle(
                 fontSize: 15,
                 color: AppTheme.gray600,
@@ -164,7 +171,7 @@ class AppDialog extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: onPrimaryPressed ?? () => context.pop(),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: type == DialogType.error ? AppTheme.danger : AppTheme.primary,
+                      backgroundColor: primaryBtnColor,
                       foregroundColor: AppTheme.white,
                       elevation: 0,
                       padding: const EdgeInsets.symmetric(vertical: 14),
