@@ -1,21 +1,20 @@
-/**
- * Company: CETAM
- * Project: QParking
- * File: slide_menu.dart
- * Created on: 15/11/2025
- * Created by: Daniel Mendoza
- * Approved by: Daniel Mendoza
- *
- * Changelog:
- * - ID: 1 | Modified on: 25/11/2025 |
- * Modified by: Gamaliel Alejandro Juarez Lodye |
- * Description: Implementation of Drawer/Navigation Rail |
- *
- *  * Changelog:
- * - ID: 2 | Modified on: 27/11/2025 |
- * Modified by: Gamaliel Alejandro Juarez Lodye |
- * Description: Replaced profile icon with profile image |
- */
+/// Company: CETAM
+/// Project: QParking
+/// File: slide_menu.dart
+/// Created on: 15/11/2025
+/// Created by: Daniel Mendoza
+/// Approved by: Daniel Mendoza
+///
+/// Changelog:
+/// - ID: 1 | Modified on: 25/11/2025 |
+/// Modified by: Gamaliel Alejandro Juarez Lodye |
+/// Description: Implementation of Drawer/Navigation Rail |
+///
+///  * Changelog:
+/// - ID: 2 | Modified on: 27/11/2025 |
+/// Modified by: Gamaliel Alejandro Juarez Lodye |
+/// Description: Replaced profile icon with profile image |
+library;
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -121,7 +120,16 @@ class SlideMenu extends StatelessWidget {
                       context.push('/add_credit');
                     },
                   ),
+                  // 2. Elemento nuevo (Actividad) - Lo agregamos justo debajo
                   _DrawerItem(
+                    icon: Icons.history, // Usamos un icono de reloj/historial más apropiado
+                    label: 'Actividad',
+                    onTap: () {
+                      context.pop(); // Cierra el menú lateral
+                      context.push('/activity'); // Navega a la nueva pantalla de actividad
+                    },
+                  ),
+                  /*_DrawerItem(
                     icon: Icons.bar_chart,
                     label: 'Historial',
                     onTap: () {
@@ -129,6 +137,7 @@ class SlideMenu extends StatelessWidget {
                       context.push('/statistics');
                     },
                   ),
+                   */
                 ],
               ),
             ),

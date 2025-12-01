@@ -1,11 +1,10 @@
-/**
- * Company: CETAM
- * Project: QParking
- * File: app_icon.dart
- * Created on: 30/11/2025
- * Created by: Carlos Adair Bautista Godinez
- * Approved by: Daniel Yair Mendoza Alvarez
- */
+/// Company: CETAM
+/// Project: QParking
+/// File: app_icon.dart
+/// Created on: 30/11/2025
+/// Created by: Carlos Adair Bautista Godinez
+/// Approved by: Daniel Yair Mendoza Alvarez
+library;
 
 import 'package:flutter/material.dart';
 import '../icons/app_icons.dart';

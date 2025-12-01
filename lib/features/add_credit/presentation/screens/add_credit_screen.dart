@@ -1,16 +1,15 @@
-/**
- * Company: CETAM
- * Project: QParking
- * File: add_credit_screen.dart
- * Created on: 15/11/2025
- * Created by: Daniel Mendoza
- * Approved by: Daniel Mendoza
- *
- * Changelog:
- * - ID: 1 | Modified on: 25/11/2025 |
- * Modified by: Gamaliel Alejandro Juarez |
- * Description: UI standardization (Payment Form) |
- */
+/// Company: CETAM
+/// Project: QParking
+/// File: add_credit_screen.dart
+/// Created on: 15/11/2025
+/// Created by: Daniel Mendoza
+/// Approved by: Daniel Mendoza
+///
+/// Changelog:
+/// - ID: 1 | Modified on: 25/11/2025 |
+/// Modified by: Gamaliel Alejandro Juarez |
+/// Description: UI standardization (Payment Form) |
+library;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

@@ -1,22 +1,19 @@
-/**
- * Company: CETAM
- * Project: QParking
- * File: user_type_card_widget.dart
- * Created on: 15/11/2025
- * Created by: Daniel Mendoza
- * Approved by: Daniel Mendoza
- *
- * Changelog:
-   * - ID: 1 | Modified on: 25/11/2025 |
-   * Modified by: Gamaliel Alejandro Juarez |
- * Description: Fix import and colors |
- */
+/// Company: CETAM
+/// Project: QParking
+/// File: user_type_card_widget.dart
+/// Created on: 15/11/2025
+/// Created by: Daniel Mendoza
+/// Approved by: Daniel Mendoza
+///
+/// Changelog:
+/// - ID: 1 | Modified on: 25/11/2025 |
+/// Modified by: Gamaliel Alejandro Juarez |
+/// Description: Fix import and colors |
+library;
 
 import 'package:flutter/material.dart';
 import '../../../../core/themes/app_theme.dart';
 
-import 'package:flutter/material.dart';
-import '../../../../core/themes/app_theme.dart';
 
 class UserTypeCard extends StatelessWidget {
   const UserTypeCard({

@@ -93,8 +93,9 @@ class DailyBarGraphWidget extends StatelessWidget {
                 getTitlesWidget: (value, meta) {
                   // ===== Muestra el valor encima de cada barra como entero =====
                   final idx = value.toInt();
-                  if (idx < 0 || idx >= hours.length)
+                  if (idx < 0 || idx >= hours.length) {
                     return const SizedBox.shrink();
+                  }
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 4),
                     child: Text(

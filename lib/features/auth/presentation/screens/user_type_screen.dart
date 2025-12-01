@@ -1,19 +1,18 @@
-/**
- * Company: CETAM
- * Project: QParking
- * File: user_type_screen.dart
- * Created on: 15/11/2025
- * Created by: Daniel Yair Mendoza Alvarez
- * Approved by: Daniel Yair Mendoza Alvarez
- *
- * Changelog:
- * - ID: 1 | Modified on: 25/11/2025 |
- * Modified by: Gamaliel Alejandro Juarez Loyde |
- * Description:Adaptation to UI standards |
- * - ID: 2 | Modified on: 30/11/2025 |
- * Modified by: Carlos Adair Bautista Godinez |
- * Description: Standarization of icons |
- */
+/// Company: CETAM
+/// Project: QParking
+/// File: user_type_screen.dart
+/// Created on: 15/11/2025
+/// Created by: Daniel Yair Mendoza Alvarez
+/// Approved by: Daniel Yair Mendoza Alvarez
+///
+/// Changelog:
+/// - ID: 1 | Modified on: 25/11/2025 |
+/// Modified by: Gamaliel Alejandro Juarez Loyde |
+/// Description:Adaptation to UI standards |
+/// - ID: 2 | Modified on: 30/11/2025 |
+/// Modified by: Carlos Adair Bautista Godinez |
+/// Description: Standarization of icons |
+library;
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

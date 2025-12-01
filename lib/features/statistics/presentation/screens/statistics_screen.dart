@@ -1,16 +1,15 @@
-/**
- * Company: CETAM
- * Project: QParking
- * File: statistics_screen.dart
- * Created on: 15/11/2025
- * Created by: Daniel Yair Mendoza Alvarez
- * Approved by: Daniel Yair Mendoza Alvarez
- *
- * Changelog:
- * - ID: 1 | Modified on: 25/11/2025 |
- * Modified by: Gamaliel Alejandro Juarez |
- * Description: Statistics UI |
- */
+/// Company: CETAM
+/// Project: QParking
+/// File: statistics_screen.dart
+/// Created on: 15/11/2025
+/// Created by: Daniel Yair Mendoza Alvarez
+/// Approved by: Daniel Yair Mendoza Alvarez
+///
+/// Changelog:
+/// - ID: 1 | Modified on: 25/11/2025 |
+/// Modified by: Gamaliel Alejandro Juarez |
+/// Description: Statistics UI |
+library;
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';

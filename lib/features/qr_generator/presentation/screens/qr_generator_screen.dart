@@ -1,16 +1,15 @@
-/**
- * Company: CETAM
- * Project: QParking
- * File: qr_generator_screen.dart
- * Created on: 15/11/2025
- * Created by: Daniel Yair Mendoza Alvarez
- * Approved by: Daniel Yair Mendoza Alvarez
- *
- * Changelog:
- * - ID: 1 | Modified on: 25/11/2025 |
- * Modified by: Gamaliel Alejandro Juarez |
- * Description: UI standardization (QR Display Layout) |
- */
+/// Company: CETAM
+/// Project: QParking
+/// File: qr_generator_screen.dart
+/// Created on: 15/11/2025
+/// Created by: Daniel Yair Mendoza Alvarez
+/// Approved by: Daniel Yair Mendoza Alvarez
+///
+/// Changelog:
+/// - ID: 1 | Modified on: 25/11/2025 |
+/// Modified by: Gamaliel Alejandro Juarez |
+/// Description: UI standardization (QR Display Layout) |
+library;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

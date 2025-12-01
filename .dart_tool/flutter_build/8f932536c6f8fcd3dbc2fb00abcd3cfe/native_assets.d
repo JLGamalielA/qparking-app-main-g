@@ -1,1 +1,0 @@
- C:\\Users\\abaut\\Documents\\Proyecto\\qparking-app\\.dart_tool\\flutter_build\\8f932536c6f8fcd3dbc2fb00abcd3cfe\\native_assets.yaml: 

@@ -1,16 +1,15 @@
-/**
- * Company: CETAM
- * Project: QParking
- * File: app_theme.dart
- * Created on: 27/11/2025
- * Created by: Daniel Mendoza
- * Approved by: Daniel Mendoza
- *
- * Changelog:
- * - ID: 1 | Modified on: 25/11/2025 |
- * Modified by: Gamaliel Alejandro Juarez Loyde |
- * Description: Implementation of colors and styles |
- */
+/// Company: CETAM
+/// Project: QParking
+/// File: app_theme.dart
+/// Created on: 27/11/2025
+/// Created by: Daniel Mendoza
+/// Approved by: Daniel Mendoza
+///
+/// Changelog:
+/// - ID: 1 | Modified on: 25/11/2025 |
+/// Modified by: Gamaliel Alejandro Juarez Loyde |
+/// Description: Implementation of colors and styles |
+library;
 import 'package:flutter/material.dart';
 
 class AppTheme {

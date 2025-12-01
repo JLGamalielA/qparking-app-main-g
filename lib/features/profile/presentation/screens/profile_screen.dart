@@ -1,29 +1,22 @@
-/**
- * Company: CETAM
- * Project: QParking
- * File: profile_screen.dart
- * Created on: 25/11/2025
- * Created by: Gamaliel Alejandro Juarez Loyde
- * Approved by: Daniel Yair Mendoza Alvarez
- *
- * Changelog:
- * - ID: 2 | Modified on: 30/11/2025 |
- * Modified by: Carlos Adair Bautista Godinez |
- * Description: Standarization of icons |
- */
+/// Company: CETAM
+/// Project: QParking
+/// File: profile_screen.dart
+/// Created on: 25/11/2025
+/// Created by: Gamaliel Alejandro Juarez Loyde
+/// Approved by: Daniel Yair Mendoza Alvarez
+///
+/// Changelog:
+/// - ID: 2 | Modified on: 30/11/2025 |
+/// Modified by: Carlos Adair Bautista Godinez |
+/// Description: Standarization of icons |
+library;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qparking/core/widgets/app_icon.dart';
 import '../../../../core/icons/app_icons.dart';
 import '../../../../core/themes/app_theme.dart';
-import '../../../../core/widgets/app_dialog.dart';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import '../../../../core/themes/app_theme.dart';
-import '../../../../core/widgets/app_dialog.dart';
 
 final obscureCurrentPassProvider = StateProvider.autoDispose<bool>((ref) => true);
 final obscureNewPassProvider = StateProvider.autoDispose<bool>((ref) => true);

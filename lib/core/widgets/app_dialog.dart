@@ -1,19 +1,18 @@
-/**
- * Company: CETAM
- * Project: QParking
- * File: app_dialog.dart
- * Created on: 27/11/2025
- * Created by: Daniel Mendoza
- * Approved by: Daniel Mendoza
- *
- * Changelog:
- * - ID: 1 | Modified on: 27/11/2025 |
- * Modified by: Gamaliel Alejandro Juarez Loyde |
- * Description: Generic Dialog component implementation  |
- * - ID: 2 | Modified on: 30/11/2025 |
- * Modified by: Carlos Adair Bautista Godinez |
- * Description: Standarization of icons |
- */
+/// Company: CETAM
+/// Project: QParking
+/// File: app_dialog.dart
+/// Created on: 27/11/2025
+/// Created by: Daniel Mendoza
+/// Approved by: Daniel Mendoza
+///
+/// Changelog:
+/// - ID: 1 | Modified on: 27/11/2025 |
+/// Modified by: Gamaliel Alejandro Juarez Loyde |
+/// Description: Generic Dialog component implementation  |
+/// - ID: 2 | Modified on: 30/11/2025 |
+/// Modified by: Carlos Adair Bautista Godinez |
+/// Description: Standarization of icons |
+library;
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

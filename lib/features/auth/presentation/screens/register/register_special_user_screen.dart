@@ -1,19 +1,18 @@
-/**
- * Company: CETAM
- * Project: QParking
- * File: register_normal_user_screen.dart
- * Created on: 15/11/2025
- * Created by: Daniel Yair Mendoza Alvarez
- * Approved by: Daniel Yair Mendoza Alvarez
- *
- * Changelog:
- * - ID: 1 | Modified on: 25/11/2025 |
- * Modified by: Gamaliel Alejandro Juarez |
- * Description: UI standardization  (Forms & Layout) |
- * - ID: 2 | Modified on: 30/11/2025 |
- * Modified by: Carlos Adair Bautista Godinez |
- * Description: Standarization of icons and form corrections |
- */
+/// Company: CETAM
+/// Project: QParking
+/// File: register_normal_user_screen.dart
+/// Created on: 15/11/2025
+/// Created by: Daniel Yair Mendoza Alvarez
+/// Approved by: Daniel Yair Mendoza Alvarez
+///
+/// Changelog:
+/// - ID: 1 | Modified on: 25/11/2025 |
+/// Modified by: Gamaliel Alejandro Juarez |
+/// Description: UI standardization  (Forms & Layout) |
+/// - ID: 2 | Modified on: 30/11/2025 |
+/// Modified by: Carlos Adair Bautista Godinez |
+/// Description: Standarization of icons and form corrections |
+library;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -41,10 +40,10 @@ class _RegisterSpecialUserScreenState extends ConsumerState<RegisterSpecialUserS
   final _parkingCtrl = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-  bool _isObscure = true;
+  final bool _isObscure = true;
 
   //Provisional
-  List<String> _parkingOptions = [];
+  final List<String> _parkingOptions = [];
   String? _selectedParking;
 
   @override
