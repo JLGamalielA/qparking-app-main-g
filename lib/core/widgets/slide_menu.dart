@@ -1,32 +1,26 @@
 /// Company: CETAM
 /// Project: QParking
 /// File: slide_menu.dart
-/// Created on: 15/11/2025
-/// Created by: Daniel Mendoza
-/// Approved by: Daniel Mendoza
-///
-/// Changelog:
-/// - ID: 1 | Modified on: 25/11/2025 |
-/// Modified by: Gamaliel Alejandro Juarez Lodye |
-/// Description: Implementation of Drawer/Navigation Rail |
-///
-///  * Changelog:
-/// - ID: 2 | Modified on: 27/11/2025 |
-/// Modified by: Gamaliel Alejandro Juarez Lodye |
-/// Description: Replaced profile icon with profile image |
+/// Modified on: 05/12/2025
+/// Description: Side menu with corrected navigation items and standardized icons.
 library;
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../themes/app_theme.dart';
+import '../icons/app_icons.dart';
+import 'app_icon.dart';
 
 class SlideMenu extends StatelessWidget {
   const SlideMenu({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // TODO: Connect with AuthProvider for real user data
+    const String userName = "QParking Admin";
+    const String userEmail = "admin@qparking.mx";
+
     return Drawer(
-      // Visual Style
       backgroundColor: AppTheme.primary,
       surfaceTintColor: AppTheme.primary,
       shape: const RoundedRectangleBorder(
@@ -38,20 +32,50 @@ class SlideMenu extends StatelessWidget {
       child: SafeArea(
         child: Column(
           children: [
-            // --- User Header ---
+            // --- 1. User Header (Logo & Info) ---
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+              padding: const EdgeInsets.fromLTRB(24, 30, 24, 20),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const CircleAvatar(
-                    radius: 30,
-                    backgroundColor: AppTheme.gray600,
-                    backgroundImage: AssetImage('assets/images/logo_qparking.png'),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const CircleAvatar(
+                        radius: 24,
+                        backgroundColor: AppTheme.gray600,
+                        // Main Logo from Assets
+                        backgroundImage: AssetImage('assets/images/logo_qparking.png'),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const [
+                            Text(
+                              userName,
+                              style: TextStyle(
+                                color: AppTheme.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            Text(
+                              userEmail,
+                              style: TextStyle(
+                                color: AppTheme.gray400,
+                                fontSize: 13,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 20),
 
-                  // "My Profile" button
+                  // Profile Button
                   SizedBox(
                     height: 40,
                     width: double.infinity,
@@ -69,9 +93,13 @@ class SlideMenu extends StatelessWidget {
                         alignment: Alignment.centerLeft,
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                       ),
-                      icon: const Icon(Icons.badge_outlined, size: 18),
+                      icon: const AppIcon(
+                          name: AppIconName.userTie,
+                          size: 16,
+                          color: AppTheme.white
+                      ),
                       label: const Text(
-                        'Mi perfil',
+                        'Mi perfil', // Text can remain in Spanish for UI
                         style: TextStyle(fontWeight: FontWeight.w500),
                       ),
                     ),
@@ -80,79 +108,81 @@ class SlideMenu extends StatelessWidget {
               ),
             ),
 
+            const Divider(color: AppTheme.gray700, height: 1),
             const SizedBox(height: 10),
 
+            // Section Title
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Operación',
+                  'OPERACIÓN',
                   style: TextStyle(
                     color: AppTheme.gray500,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 0.5,
+                    fontSize: 11,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 1.0,
                   ),
                 ),
               ),
             ),
 
-            // --- Navigation Options ---
+            // --- 2. Navigation Options ---
             Expanded(
               child: ListView(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 children: [
                   _DrawerItem(
-                    icon: Icons.home_outlined,
+                    iconName: AppIconName.home,
                     label: 'Inicio',
+                    isActive: true, // Logic to determine active state
                     onTap: () {
                       context.pop();
                       context.go('/home');
                     },
-                    isActive: true,
                   ),
                   _DrawerItem(
-                    icon: Icons.account_balance_wallet_outlined,
+                    iconName: AppIconName.money,
                     label: 'Recargar Saldo',
                     onTap: () {
                       context.pop();
                       context.push('/add_credit');
                     },
                   ),
-                  // 2. Elemento nuevo (Actividad) - Lo agregamos justo debajo
+                  // FIX 1: Bank Card uses AppIconName.card (ICON), not ImagePath
                   _DrawerItem(
-                    icon: Icons.history, // Usamos un icono de reloj/historial más apropiado
-                    label: 'Actividad',
-                    onTap: () {
-                      context.pop(); // Cierra el menú lateral
-                      context.push('/activity'); // Navega a la nueva pantalla de actividad
-                    },
-                  ),
-                  /*_DrawerItem(
-                    icon: Icons.bar_chart,
-                    label: 'Historial',
+                    iconName: AppIconName.card,
+                    label: 'Tarjeta',
                     onTap: () {
                       context.pop();
-                      context.push('/statistics');
+                      context.push('/bank_card');
                     },
                   ),
-                   */
+                  // FIX 2: Restored "Activity" item pointing to /activity
+                  _DrawerItem(
+                    iconName: AppIconName.list, // Using 'list' icon for activity table
+                    label: 'Actividad',
+                    onTap: () {
+                      context.pop();
+                      context.push('/activity');
+                    },
+                  ),
                 ],
               ),
             ),
 
-            // --- Footer / Sign Out ---
+            // --- 3. Footer ---
             Padding(
               padding: const EdgeInsets.all(24),
               child: _DrawerItem(
-                icon: Icons.exit_to_app,
+                iconName: AppIconName.logout,
                 label: 'Cerrar sesión',
+                textColor: AppTheme.gray400,
+                iconColor: AppTheme.gray400,
                 onTap: () {
                   context.go('/login');
                 },
-                textColor: AppTheme.gray400,
-                iconColor: AppTheme.gray400,
               ),
             ),
           ],
@@ -162,9 +192,10 @@ class SlideMenu extends StatelessWidget {
   }
 }
 
-// dark menu items
+// Helper Widget for Drawer Items
 class _DrawerItem extends StatelessWidget {
-  final IconData icon;
+  final AppIconName? iconName;
+  final String? imagePath;
   final String label;
   final VoidCallback onTap;
   final bool isActive;
@@ -172,35 +203,52 @@ class _DrawerItem extends StatelessWidget {
   final Color? iconColor;
 
   const _DrawerItem({
-    required this.icon,
+    super.key,
+    this.iconName,
+    this.imagePath,
     required this.label,
     required this.onTap,
     this.isActive = false,
     this.textColor,
     this.iconColor,
-  });
+  }) : assert(iconName != null || imagePath != null, 'You must provide either iconName or imagePath');
 
   @override
   Widget build(BuildContext context) {
+    final finalIconColor = iconColor ?? (isActive ? AppTheme.white : AppTheme.gray400);
+    final finalTextColor = textColor ?? (isActive ? AppTheme.white : AppTheme.gray100);
+
     return ListTile(
-      leading: Icon(
-        icon,
-        color: iconColor ?? (isActive ? AppTheme.white : AppTheme.gray400),
-        size: 24,
-      ),
+      leading: _buildLeadingIcon(finalIconColor),
       title: Text(
         label,
         style: TextStyle(
-          fontSize: 16,
+          fontSize: 15,
           fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
-          color: textColor ?? (isActive ? AppTheme.white : AppTheme.gray100),
+          color: finalTextColor,
         ),
       ),
       dense: true,
-      contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
       onTap: onTap,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       tileColor: isActive ? AppTheme.white.withOpacity(0.1) : null,
+    );
+  }
+
+  Widget _buildLeadingIcon(Color color) {
+    if (imagePath != null) {
+      return Image.asset(
+        imagePath!,
+        width: 24, // Standard size
+        height: 24,
+        fit: BoxFit.contain,
+      );
+    }
+    return AppIcon(
+      name: iconName!,
+      size: 20,
+      color: color,
     );
   }
 }

@@ -23,6 +23,8 @@ import '../../../features/add_credit/presentation/screens/add_credit_screen.dart
 import '../../../features/statistics/presentation/screens/statistics_screen.dart';
 import '../../../features/profile/presentation/screens/profile_screen.dart';
 import '../../../features/activity/activity_exports.dart';
+import '../../../features/bank_card/bank_card_exports.dart';
+
 
 
 // Provider global del router
@@ -80,6 +82,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/profile',
         builder: (context, state) => const ProfileScreen(),
+      ),
+      GoRoute(
+        path: '/bank_card',
+        builder: (context, state) => const BankCardScreen(),
       ),
     ],
   );

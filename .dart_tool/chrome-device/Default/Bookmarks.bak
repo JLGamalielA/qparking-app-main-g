@@ -1,0 +1,117 @@
+{
+   "checksum": "fde2786039a1a5088e3cd3e2a2617d56",
+   "roots": {
+      "bookmark_bar": {
+         "children": [ {
+            "date_added": "13409390574684593",
+            "date_last_used": "0",
+            "guid": "593105aa-eaef-42a9-90d3-8d95355ba773",
+            "id": "14",
+            "name": "ASUS Software Portal - Exclusive technology",
+            "show_icon": false,
+            "source": "oem_preload",
+            "type": "url",
+            "url": "https://www.asus.com/Software-and-Innovations-Portal/",
+            "visit_count": 0
+         }, {
+            "date_added": "13409390574683654",
+            "date_last_used": "0",
+            "guid": "8e17707f-ed37-4104-9d01-042e47d01a11",
+            "id": "13",
+            "name": "MyASUS Software - Get the best from ASUS PC",
+            "show_icon": false,
+            "source": "oem_preload",
+            "type": "url",
+            "url": "https://www.asus.com/ASUS-Software/",
+            "visit_count": 0
+         }, {
+            "date_added": "13258681729743634",
+            "date_last_used": "13406070420565274",
+            "guid": "035c9b91-a96c-4bb7-8c9e-e8472b24a849",
+            "id": "8",
+            "name": "WhatsApp",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://web.whatsapp.com/",
+            "visit_count": 1
+         }, {
+            "date_added": "13258681765846891",
+            "date_last_used": "13406070425315352",
+            "guid": "5a7ecbe5-1443-49dd-87db-e526ce09dd98",
+            "id": "9",
+            "name": "Messenger",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://www.messenger.com/t/100005441412382",
+            "visit_count": 1
+         }, {
+            "date_added": "13259898009322807",
+            "date_last_used": "0",
+            "guid": "4edc6b03-325c-47b7-b4ef-27968a681bb5",
+            "id": "10",
+            "name": "Facebook",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://www.facebook.com/",
+            "visit_count": 0
+         }, {
+            "date_added": "13409382918826029",
+            "date_last_used": "0",
+            "guid": "c80ebafc-df82-4d47-8591-0a6025441a42",
+            "id": "7",
+            "name": "ASUS Software Portal - Exclusive technology",
+            "show_icon": false,
+            "source": "oem_preload",
+            "type": "url",
+            "url": "https://www.asus.com/Software-and-Innovations-Portal/",
+            "visit_count": 0
+         }, {
+            "date_added": "13409382918824985",
+            "date_last_used": "0",
+            "guid": "f1c4f39d-714a-4a8d-8efa-d556aebe4c7a",
+            "id": "6",
+            "name": "MyASUS Software - Get the best from ASUS PC",
+            "show_icon": false,
+            "source": "oem_preload",
+            "type": "url",
+            "url": "https://www.asus.com/ASUS-Software/",
+            "visit_count": 0
+         } ],
+         "date_added": "13409382916255432",
+         "date_last_used": "0",
+         "date_modified": "13409390574684593",
+         "guid": "0bc5d13f-2cba-5d74-951f-3f233fe6c908",
+         "id": "1",
+         "name": "Barra de favoritos",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "other": {
+         "children": [  ],
+         "date_added": "13409382916255432",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "82b081ec-3dd3-529c-8475-ab6c344590dd",
+         "id": "2",
+         "name": "Otros favoritos",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "synced": {
+         "children": [  ],
+         "date_added": "13409382916255432",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "4cf2e351-0e85-532b-bb37-df045d8f8d0f",
+         "id": "3",
+         "name": "Favoritos móviles",
+         "source": "unknown",
+         "type": "folder"
+      }
+   },
+   "sync_metadata": "CkEKHgiIgQISCLCOxuyaAQAAKg4QABgBIAAoBjAAOABAABIAKhhuQTF0cHpEZTRaQ212Y2FzcVlmakl3PT1IA6AGDBKOAQgDEokBChxuamdEdTg4ZUNydlhwODZwRDdmSEdjcUZwODg9EiRkMGNiODU4NS1mZDc0LTUyYmUtODU2OC0wZmE5NzZmODVhNjQYACAAKAAwrJ6L+8QuOI/Xq4iHMECP16uIhzBKHHl6TkIwMWNuNTRBN2NSVTB1VCsvUGdtVHRVbz1aAGUAAAAAwj4CYAASjgEIAhKJAQocWWNTVG9udkVTUHdxQ3M0TDJjclZodjY4TDk4PRIkNDczZjA0YzMtNjRmNy01OTgwLWI0NzctMzQwYzYzOGY2N2Q2GAAgACgAMKiei/vELjiS1quIhzBAktariIcwShxvUFZraHdCUmJWNjVLQ1dSMitJT05IV29PdTg9WgBlAAAAAMI+AmAAEo4BCAESiQEKHHl4Si82ZnZrZWNyN2twNUVRekI0dFdMcGRiRT0SJDMxNTk4NzEyLTM2OTAtNTViZi1hM2I0LWJjZGQzYTEwYjhlNBgAIAAoADCnnov7xC44gtariIcwQILWq4iHMEocYVJDV0xnaEY5YjVJbnFLSUR2dUovanZRa0ZjPVoAZQAAAADCPgJgABKsAQgIEqcBChxPR2g3UzkweUZKbzliUlNDdmRTZ0lYMjluQkk9EiQwMzVjOWI5MS1hOTZjLTRiYjctOGM5ZS1lODQ3MmIyNGE4NDkYACAAKAAwu6npuqIzOPbpq4iHMED26auIhzBKHDFzVFlUZEE1RGdGWXRGVi9FVzF6YVJpTWtIcz1aHiIcYzlRc2dIODcrTkNoYi9DQ3hYZFptOW1pU01ZPWUClwHrwj4CYAUSrQEICRKoAQocbnhvblV6SFJhdDFrRzBuWGRya1ZmN3h4YVFVPRIkNWE3ZWNiZTUtMTQ0My00OWRkLTg3ZGItZTUyNmNlMDlkZDk4GAAgACgAMNfO6bqiMzjj6quIhzBA4+qriIcwShx1YW5Fby93Z0xhdTNVNXI4bjVyTHRxUHAvWHM9Wh8iHbEyYnlMS08vUHlPd0tCcDdrMTQrL0NwdlhVY3c9Ze1Nj5LCPgJgBRKtAQgKEqgBChx4aHFqYStiRXhJQVFwK3U1OTNGK1U1Y2FEQk09EiQ0ZWRjNmIwMy0zMjVjLTQ3YjctYjRlZi0yNzk2OGE2ODFiYjUYACAAKAAwjovh0bYxOPfjq4iHMED346uIhzBKHHpObjl1R3lBTjZ3QVlxOVpzSmllN0ZhcFVEUT1aHyId2DhGaFN1VHN6VlBOUGdhNGRGdWRBRDcyY0lycz1lxJF2xcI+AmAFMAA4AA==",
+   "version": 1
+}

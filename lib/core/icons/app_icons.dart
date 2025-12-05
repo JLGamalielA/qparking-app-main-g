@@ -104,6 +104,9 @@ enum AppIconName{
   parking,
   //Subscription
   medal,
+  //icon
+  iconic,
+  calendar
 }
 
 final Map<AppIconName, IconData> kAppIconMap = {
@@ -187,4 +190,5 @@ final Map<AppIconName, IconData> kAppIconMap = {
   AppIconName.qrCode: FontAwesomeIcons.qrcode,
   AppIconName.parking: FontAwesomeIcons.squareParking,
   AppIconName.medal: FontAwesomeIcons.medal,
+  AppIconName.calendar: FontAwesomeIcons.solidCalendarDays,
 };

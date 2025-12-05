@@ -52,4 +52,9 @@ const List<MenuItem> appMenuItems = [
       link: '/login',
       icon: Icons.logout
   ),
+  MenuItem(
+      title: 'Tarjeta',
+      link: '/bank_card',
+      icon: Icons.credit_card
+  ),
 ];
