@@ -1,3 +1,16 @@
+/**
+ * Company: CETAM
+ * Project: QParking
+ * File: slide_menu.dart
+ * Created on: 12/12/2025
+ * Created by: Rodrigo
+ * Approved by: Gamaliel Juarez
+ *
+ * Changelog:
+ * - ID: 1 | Modified on: 12/12/2025 |
+ * Modified by: Rodrigo
+ * Description: Adjusted sublist indices after removing "Add Credit" item. |
+ */
 import 'package:flutter/material.dart';
 
 class MenuItem {
@@ -22,11 +35,7 @@ const List<MenuItem> appMenuItems = [
       link: '/qr_generator',
       icon: Icons.qr_code
   ),
-  MenuItem(
-      title: 'Abonar Saldo',
-      link: '/add_credit',
-      icon: Icons.monetization_on
-  ),
+
   MenuItem(
       title: 'Suscripción',
       link: '/user_subscription',

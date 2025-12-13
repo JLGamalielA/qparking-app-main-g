@@ -12,7 +12,7 @@
 library;
 
 import 'package:flutter/material.dart';
-import '../../../../core/themes/app_theme.dart';
+import '../../../../core/theme/app_theme.dart';
 
 
 class UserTypeCard extends StatelessWidget {

@@ -3,19 +3,19 @@
  * Project: QParking
  * File: activity_card_widget.dart
  * Created on: 01/12/2025
- * Created by: Flutter Assistant
+ * Created by: Rodrigo Peña
  * Approved by: Daniel Yair Mendoza Alvarez
  *
  * Changelog:
- * - ID: 1 | Modified on: 01/12/2025 |
- * Modified by: Flutter Assistant |
- * Description: Final version with entry/exit times and total amount. |
+ * - ID: 2 | Modified on: 12/12/2025 |
+ * Modified by: Rodrigo Peña |
+ * Description: Refactored to use global constants and String icon aliases. |
  */
 
 import 'package:flutter/material.dart';
-import '../../../../../core/themes/app_theme.dart';
-import '../../../../../core/widgets/app_icon.dart';
-import '../../../../../core/icons/app_icons.dart';
+import 'package:qparking/core/constants/constants_exports.dart';
+import 'package:qparking/core/widgets/widgets_exports.dart';
+import '../../../../core/icons/app_icons.dart';
 import '../../data/activity_model.dart';
 
 class ActivityCardWidget extends StatelessWidget {
@@ -29,12 +29,12 @@ class ActivityCardWidget extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppTheme.white,
+        color: WHITE_COLOR, // Replaced AppTheme.white
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppTheme.gray200),
+        border: Border.all(color: GRAY_200), // Replaced AppTheme.gray200
         boxShadow: [
           BoxShadow(
-            color: AppTheme.primary.withOpacity(0.05),
+            color: PRIMARY_COLOR.withOpacity(0.05), // Replaced AppTheme.primary
             blurRadius: 8,
             offset: const Offset(0, 4),
           ),
@@ -50,12 +50,13 @@ class ActivityCardWidget extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: AppTheme.primary.withOpacity(0.08),
+                  color: PRIMARY_COLOR.withOpacity(0.08),
                   borderRadius: BorderRadius.circular(10),
                 ),
+                // Use String alias 'invoice' (Ensure this is added to app_icons.dart)
                 child: const AppIcon(
-                  name: AppIconName.invoice, // Correct icon for transaction
-                  color: AppTheme.primary,   // Primary color for data/icons on light bg
+                  name: AppIconName.invoice,
+                  color: PRIMARY_COLOR,
                   size: 20,
                 ),
               ),
@@ -71,14 +72,14 @@ class ActivityCardWidget extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
-                        color: AppTheme.primary,
+                        color: PRIMARY_COLOR, // Replaced AppTheme.primary
                       ),
                     ),
                     Text(
                       'Folio: ${activity.transactionFolio}',
                       style: const TextStyle(
                         fontSize: 12,
-                        color: AppTheme.gray500,
+                        color: GRAY_500, // Replaced AppTheme.gray500
                       ),
                     ),
                   ],
@@ -91,14 +92,14 @@ class ActivityCardWidget extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
-                  color: AppTheme.gray600,
+                  color: GRAY_600, // Replaced AppTheme.gray600
                 ),
               ),
             ],
           ),
 
           const SizedBox(height: 12),
-          const Divider(height: 1, color: AppTheme.gray200),
+          const Divider(height: 1, color: GRAY_200), // Replaced AppTheme.gray200
           const SizedBox(height: 12),
 
           // --- Details Row: Times & Total ---
@@ -124,14 +125,14 @@ class ActivityCardWidget extends StatelessWidget {
                 children: [
                   const Text(
                       'Total',
-                      style: TextStyle(fontSize: 12, color: AppTheme.gray500)
+                      style: TextStyle(fontSize: 12, color: GRAY_500)
                   ),
                   Text(
                     '\$${activity.totalAmount.toStringAsFixed(2)}',
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
-                      color: AppTheme.primary, // Primary color for numeric data
+                      color: PRIMARY_COLOR, // Replaced AppTheme.primary
                     ),
                   ),
                 ],
@@ -159,7 +160,7 @@ class _TimeRow extends StatelessWidget {
           width: 60, // Fixed width for alignment
           child: Text(
               label,
-              style: const TextStyle(fontSize: 12, color: AppTheme.gray500)
+              style: const TextStyle(fontSize: 12, color: GRAY_500) // Replaced AppTheme.gray500
           ),
         ),
         Text(
@@ -167,7 +168,7 @@ class _TimeRow extends StatelessWidget {
             style: const TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
-                color: AppTheme.gray700
+                color: GRAY_700 // Replaced AppTheme.gray700
             )
         ),
       ],

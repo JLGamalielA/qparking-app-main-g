@@ -1,255 +1,256 @@
-/// Company: CETAM
-/// Project: QParking
-/// File: bank_card_screen.dart
-/// Created on: 04/12/2025
-/// Modified on: 04/12/2025 (Fix: Back button visibility and Standard AppBar)
-/// Description: Complete Screen
-library;
+/**
+ * Company: CETAM
+ * Project: QParking
+ * File: bank_card_screen.dart
+ * Created on: 13/12/2025
+ * Created by: Rodrigo Peña
+ * Modified by: Rodrigo Peña
+ * Approved by: Gamaliel Juarez
+ *
+ * Changelog:
+ * - ID: 2 | Modified on: 13/12/2025 | Rodrigo Peña | Added notification bell and user initials to AppBar actions.
+ */
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../core/themes/app_theme.dart';
-import '../../../../core/icons/app_icons.dart';
-import '../../../../core/widgets/app_icon.dart';
+import 'package:qparking/core/theme/app_theme.dart';
+import 'package:qparking/core/widgets/app_icon.dart';
+import 'package:qparking/core/icons/app_icons.dart';
 
+const double _kStandardBorderRadius = 12.0;
 
-class BankCardScreen extends StatefulWidget {
+class BankCardScreen extends StatelessWidget {
   const BankCardScreen({super.key});
 
-  @override
-  State<BankCardScreen> createState() => _BankCardScreenState();
-}
-
-class _BankCardScreenState extends State<BankCardScreen> {
-  final _formKey = GlobalKey<FormState>();
-
-
-  final TextEditingController _cardNumberController = TextEditingController();
-  final TextEditingController _cardHolderController = TextEditingController();
-  final TextEditingController _expiryDateController = TextEditingController();
-  final TextEditingController _cvvController = TextEditingController();
-
-  @override
-  void dispose() {
-    _cardNumberController.dispose();
-    _cardHolderController.dispose();
-    _expiryDateController.dispose();
-    _cvvController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-
-      appBar: AppBar(
-        title: const Text(
-          'Registro de Tarjeta',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: AppTheme.primary,
-          ),
-        ),
-        centerTitle: true,
-
-      ),
-
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24.0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-
-                const Text(
-                  'Datos Bancarios',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: AppTheme.primary,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                const Text(
-                  'Ingrese la información de su tarjeta para pagos futuros.',
-                  style: TextStyle(color: AppTheme.gray600),
-                ),
-                const SizedBox(height: 32),
-
-
-                _buildLabel('Número de tarjeta *'),
-                TextFormField(
-                  controller: _cardNumberController,
-                  keyboardType: TextInputType.number,
-                  maxLength: 16,
-                  decoration: const InputDecoration(
-                    prefixIcon: Padding(
-                      padding: EdgeInsets.all(12.0),
-                      child: AppIcon(name: AppIconName.card, size: 20),
-                    ),
-                    counterText: "",
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Este campo es obligatorio.';
-                    }
-                    if (value.length < 16) {
-                      return 'Formato no válido (16 dígitos).';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 24),
-
-
-                _buildLabel('Nombre del titular *'),
-                TextFormField(
-                  controller: _cardHolderController,
-                  textCapitalization: TextCapitalization.characters,
-                  decoration: const InputDecoration(
-                    prefixIcon: Padding(
-                      padding: EdgeInsets.all(12.0),
-                      child: AppIcon(name: AppIconName.user, size: 20),
-                    ),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Este campo es obligatorio.';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 24),
-
-
-                Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _buildLabel('Expiración (MM/AA) *'),
-                          TextFormField(
-                            controller: _expiryDateController,
-                            keyboardType: TextInputType.datetime,
-                            maxLength: 5,
-                            decoration: const InputDecoration(
-                              prefixIcon: Padding(
-                                padding: EdgeInsets.all(12.0),
-                                // Usamos 'pending' (reloj) si no agregaste 'calendar' aún
-                                child: AppIcon(name: AppIconName.pending, size: 20),
-                              ),
-                              hintText: 'MM/AA',
-                              counterText: "",
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Dato requerido.';
-                              }
-                              return null;
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _buildLabel('CVV *'),
-                          TextFormField(
-                            controller: _cvvController,
-                            keyboardType: TextInputType.number,
-                            obscureText: true,
-                            maxLength: 4,
-                            decoration: const InputDecoration(
-                              prefixIcon: Padding(
-                                padding: EdgeInsets.all(12.0),
-                                child: AppIcon(name: AppIconName.lock, size: 20),
-                              ),
-                              counterText: "",
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Dato requerido.';
-                              }
-                              return null;
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 40),
-
-
-                Row(
-                  children: [
-                    Expanded(
-                      child: OutlinedButton.icon(
-                        onPressed: () {
-                          context.pop();
-                        },
-                        style: OutlinedButton.styleFrom(
-                          side: const BorderSide(color: AppTheme.secondary),
-                          foregroundColor: AppTheme.secondary,
-                          minimumSize: const Size(double.infinity, 52),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        icon: const AppIcon(name: AppIconName.cancel, size: 18),
-                        label: const Text('Cancelar'),
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: ElevatedButton.icon(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Tarjeta guardada correctamente.'),
-                                backgroundColor: AppTheme.success,
-                              ),
-                            );
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppTheme.primary,
-                          foregroundColor: AppTheme.white,
-                          minimumSize: const Size(double.infinity, 52),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        icon: const AppIcon(name: AppIconName.save, color: AppTheme.white, size: 18),
-                        label: const Text('Guardar'),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildLabel(String text) {
+  Widget _sectionLabel(String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Text(
         text,
         style: const TextStyle(
-          color: AppTheme.gray700,
           fontSize: 14,
           fontWeight: FontWeight.w600,
+          color: AppTheme.gray700,
+        ),
+      ),
+    );
+  }
+
+  InputDecoration _inputDecoration({String? hint, AppIconName? icon}) {
+    return InputDecoration(
+      hintText: hint,
+      hintStyle: const TextStyle(fontSize: 14, color: AppTheme.gray400),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+      filled: true,
+      fillColor: AppTheme.gray50,
+      prefixIcon: icon != null
+          ? AppIcon(name: icon, size: 20, color: AppTheme.gray500)
+          : null,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: const BorderSide(color: AppTheme.gray200, width: 1),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: const BorderSide(color: AppTheme.gray200, width: 1),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: const BorderSide(color: AppTheme.primary, width: 1.5),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // Iniciales fijas para consistencia
+    const String userInitials = "DM";
+
+    return Scaffold(
+      backgroundColor: AppTheme.gray50,
+
+      appBar: AppBar(
+        backgroundColor: AppTheme.primary,
+        elevation: 0,
+        centerTitle: true,
+        iconTheme: const IconThemeData(color: AppTheme.white),
+        title: const Text(
+          'Pago con Tarjeta',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w700,
+            color: AppTheme.white,
+          ),
+        ),
+        // --- NUEVO: ACCIONES (Campana + Iniciales) ---
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const AppIcon(name: AppIconName.bell, color: AppTheme.white, size: 22),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 16.0, left: 4.0),
+            child: InkWell(
+              onTap: () => context.push('/profile'),
+              borderRadius: BorderRadius.circular(18),
+              child: CircleAvatar(
+                radius: 18,
+                backgroundColor: AppTheme.white.withOpacity(0.2),
+                child: const Text(
+                  userInitials,
+                  style: TextStyle(
+                    color: AppTheme.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(24),
+                decoration: BoxDecoration(
+                  color: AppTheme.white,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: AppTheme.gray200),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppTheme.primary.withOpacity(0.05),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const Center(
+                      child: AppIcon(
+                        name: AppIconName.card,
+                        size: 48,
+                        color: AppTheme.primary,
+                      ),
+                    ),
+                    const SizedBox(height: 32),
+
+                    _sectionLabel('Número de Tarjeta'),
+                    SizedBox(
+                      height: 60,
+                      child: TextField(
+                        keyboardType: TextInputType.number,
+                        decoration: _inputDecoration(
+                          hint: '0000 0000 0000 0000',
+                          icon: AppIconName.card,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+
+                    _sectionLabel('Nombre del Titular'),
+                    SizedBox(
+                      height: 60,
+                      child: TextField(
+                        decoration: _inputDecoration(
+                          hint: 'Como aparece en la tarjeta',
+                          icon: AppIconName.user,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              _sectionLabel('Vencimiento'),
+                              SizedBox(
+                                height: 60,
+                                child: TextField(
+                                  keyboardType: TextInputType.datetime,
+                                  decoration: _inputDecoration(hint: 'MM/AA'),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              _sectionLabel('CVV / CVC'),
+                              SizedBox(
+                                height: 60,
+                                child: TextField(
+                                  keyboardType: TextInputType.number,
+                                  obscureText: true,
+                                  decoration: _inputDecoration(
+                                      hint: '123',
+                                      icon: AppIconName.lock
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 32),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        AppIcon(name: AppIconName.lock, size: 14, color: AppTheme.success),
+                        SizedBox(width: 8),
+                        Text(
+                          'Transacción segura y encriptada',
+                          style: TextStyle(
+                              fontSize: 13,
+                              color: AppTheme.gray500,
+                              fontWeight: FontWeight.w500
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 24),
+
+                    SizedBox(
+                      height: 52,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppTheme.primary,
+                          foregroundColor: AppTheme.white,
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(_kStandardBorderRadius),
+                          ),
+                        ),
+                        onPressed: () {
+                          context.go('/home');
+                        },
+                        child: const Text(
+                          'Confirmar Pago',
+                          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

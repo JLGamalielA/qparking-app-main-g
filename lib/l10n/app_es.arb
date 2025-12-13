@@ -1,0 +1,16 @@
+{
+  "@@locale": "es",
+  "app_name": "QParking",
+  "login_subtitle": "Accede con tu cuenta para pagar\ntu estacionamiento.",
+  "form_email_label": "Correo Electrónico",
+  "form_password_label": "Contraseña",
+  "action_login": "Iniciar Sesión",
+  "action_register": "Regístrate",
+  "login_no_account": "¿No tienes cuenta?",
+  "error_required_field": "Campo requerido",
+  "user_type_title": "¿Qué tipo de usuario eres?",
+  "user_type_normal_title": "Usuario Normal",
+  "user_type_normal_desc": "Regístrate como usuario normal si solo deseas usar, entrar y pagar estacionamientos de forma regular.",
+  "user_type_special_title": "Usuario Especial",
+  "user_type_special_desc": "Regístrate como usuario especial si eres proveedor, taxi o tienes un convenio con algún estacionamiento afiliado."
+}

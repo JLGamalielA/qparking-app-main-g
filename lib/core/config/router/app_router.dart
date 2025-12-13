@@ -1,14 +1,16 @@
-/// Company: CETAM
-/// Project: QParking
-/// File: app_router.dart
-/// Created on: 15/11/2025
-/// Created by: Daniel Mendoza
-/// Approved by: Daniel Mendoza
-///
-/// Changelog:
-/// - ID: 1 | Modified on: 27/11/2025 |
-/// Modified by: Gamaliel Alejandro Juarez |
-/// Description: Configuration of application routes |
+/**
+ * Company: CETAM
+ * Project: QParking
+ * File: app_router.dart
+ * Created on: 12/12/2025
+ * Created by: Rodrigo Peña
+ * Approved by: Gamaliel Juarez
+ *
+ * Changelog:
+ * - ID: 1 | Modified on: 12/12/2025 |
+ * Modified by: Rodrigo Peña |
+ * Description: Removed '/add_credit' route definition. |
+ */
 library;
 
 import 'package:go_router/go_router.dart';
@@ -24,6 +26,11 @@ import '../../../features/statistics/presentation/screens/statistics_screen.dart
 import '../../../features/profile/presentation/screens/profile_screen.dart';
 import '../../../features/activity/activity_exports.dart';
 import '../../../features/bank_card/bank_card_exports.dart';
+import 'package:qparking/features/activity/presentation/screens/activity_screen.dart';
+import 'package:qparking/features/profile/presentation/screens/profile_screen.dart';
+import 'package:qparking/features/special_user_request/presentation/screens/show_special_user_requests.dart';
+import 'package:qparking/features/special_user_request/presentation/screens/create_special_user_request.dart';
+import 'package:qparking/features/subscriptions/presentation/screens/subscriptions_screen.dart';
 
 
 
@@ -61,7 +68,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: '/qr_generator',
         builder: (context, state) => const QrGeneratorScreen(),
       ),
-      GoRoute(
+      /**GoRoute(
         path: '/add_credit',
         builder: (context, state) => const AddCreditScreen(),
       ),
@@ -69,7 +76,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: '/statistics_screen',
         builder: (context, state) => const StatisticsScreen(),
       ),
-      /*GoRoute(
+      GoRoute(
         path: '/statistics',
         builder: (context, state) => const StatisticsScreen(),
       ),
@@ -82,6 +89,19 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/profile',
         builder: (context, state) => const ProfileScreen(),
+      ),
+      // Rutas de Solicitudes
+      GoRoute(
+        path: '/show_requests',
+        builder: (context, state) => const ShowSpecialUserRequests(),
+      ),
+      GoRoute(
+        path: '/create_special_user_request',
+        builder: (context, state) => const CreateSpecialUserRequest(),
+      ),
+      GoRoute(
+        path: '/subscriptions',
+        builder: (context, state) => const SubscriptionsScreen(),
       ),
       GoRoute(
         path: '/bank_card',

@@ -1,2 +1,2 @@
 export 'presentation/screens/qr_generator_screen.dart';
-export 'presentation/providers/timer_provider.dart';
+export 'business/timer_provider.dart';

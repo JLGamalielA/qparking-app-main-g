@@ -18,7 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../core/icons/app_icons.dart';
-import '../../../../../core/themes/app_theme.dart';
+import '../../../../../core/theme/app_theme.dart';
 import '../../../../../core/widgets/app_icon.dart';
 
 final specialRegisterLoadingProvider = StateProvider.autoDispose<bool>((ref) => false);

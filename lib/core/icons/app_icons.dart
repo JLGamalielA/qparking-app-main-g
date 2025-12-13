@@ -1,27 +1,31 @@
 /// Company: CETAM
 /// Project: QParking
 /// File: app_icons.dart
-/// Created on: 30/11/2025
-/// Created by: Carlos Adair Bautista Godinez
-/// Approved by: Daniel Yair Mendoza Alvarez
+/// Created on: 13/12/2025
+/// Created by: Rodrigo Peña
+/// Approved by: Gamaliel Juarez
+///
+/// Changelog:
+/// - ID: 1 | Modified on: 13/12/2025 |
+/// Modified by: Rodrigo Peña |
+/// Description: Standardized icon catalog with English comments. |
 library;
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 
-enum AppIconName{
-  //Users & Roles
+enum AppIconName {
   user,
   userCircle,
   userAdd,
   userRemove,
   userGroup,
-  userTie,
-  //Actions
+  userTie, // Used in SlideMenu profile
   add,
   edit,
   delete,
   view,
+  viewOff,
   save,
   cancel,
   send,
@@ -29,7 +33,6 @@ enum AppIconName{
   upload,
   search,
   refreshArrows,
-  //Alerts & Notifications
   success,
   error,
   warning,
@@ -37,25 +40,23 @@ enum AppIconName{
   pending,
   notification,
   notificationOff,
-  //Files & Directories
   file,
   filePdf,
   fileWord,
   fileExcel,
   fileImage,
   folder,
+  clock,
   folderOpen,
   uploadArrow,
   downloadArrow,
   attachment,
-  //Process, Settings & Loading
   refreshArrow,
   loading,
   settings,
   process,
   sync,
-  //Nav & UI
-  home,
+  home, // Used in SlideMenu
   dashboard,
   menu,
   back,
@@ -64,49 +65,42 @@ enum AppIconName{
   down,
   close,
   externalLink,
-  //Payment
   money,
   coins,
-  card,
+  card, // Used in SlideMenu
   invoice,
   chartUp,
   chartDown,
-  //Comms
   email,
   phone,
   chat,
   support,
   help,
-  //Lists & Filters
-  list,
+  star,
+  list, // Used in SlideMenu
   listOrdered,
   filter,
   sort,
   sortUp,
   sortDown,
   checkList,
-  //Access & Security
   login,
-  logout,
+  logout, // Used in SlideMenu
   lock,
   unlock,
   key,
   shield,
-  //Reports
   report,
   reportBar,
   reportPie,
   print,
   downloadReport,
-  //QrCode
   qrCode,
-  //Parking
   parking,
-  //Subscription
   medal,
-  //icon
   iconic,
-  calendar
+  calendar,
+  bell
 }
 
 final Map<AppIconName, IconData> kAppIconMap = {
@@ -120,6 +114,7 @@ final Map<AppIconName, IconData> kAppIconMap = {
   AppIconName.edit: FontAwesomeIcons.solidPenToSquare,
   AppIconName.delete: FontAwesomeIcons.trash,
   AppIconName.view: FontAwesomeIcons.solidEye,
+  AppIconName.viewOff: FontAwesomeIcons.solidEyeSlash,
   AppIconName.save: FontAwesomeIcons.solidFloppyDisk,
   AppIconName.cancel: FontAwesomeIcons.xmark,
   AppIconName.send: FontAwesomeIcons.solidPaperPlane,
@@ -129,6 +124,7 @@ final Map<AppIconName, IconData> kAppIconMap = {
   AppIconName.refreshArrows: FontAwesomeIcons.arrowsRotate,
   AppIconName.success: FontAwesomeIcons.solidCircleCheck,
   AppIconName.error: FontAwesomeIcons.circleXmark,
+  AppIconName.bell: FontAwesomeIcons.bell,
   AppIconName.warning: FontAwesomeIcons.triangleExclamation,
   AppIconName.info: FontAwesomeIcons.circleInfo,
   AppIconName.pending: FontAwesomeIcons.solidClock,
@@ -146,6 +142,7 @@ final Map<AppIconName, IconData> kAppIconMap = {
   AppIconName.attachment: FontAwesomeIcons.paperclip,
   AppIconName.refreshArrow: FontAwesomeIcons.arrowRotateRight,
   AppIconName.loading: FontAwesomeIcons.spinner,
+  AppIconName.clock: FontAwesomeIcons.clock,
   AppIconName.settings: FontAwesomeIcons.gear,
   AppIconName.process: FontAwesomeIcons.gears,
   AppIconName.sync: FontAwesomeIcons.sync,
@@ -157,6 +154,7 @@ final Map<AppIconName, IconData> kAppIconMap = {
   AppIconName.up: FontAwesomeIcons.arrowUp,
   AppIconName.down: FontAwesomeIcons.arrowDown,
   AppIconName.close: FontAwesomeIcons.rectangleXmark,
+  AppIconName.star: FontAwesomeIcons.star,
   AppIconName.externalLink: FontAwesomeIcons.arrowUpRightFromSquare,
   AppIconName.money: FontAwesomeIcons.dollarSign,
   AppIconName.coins: FontAwesomeIcons.coins,

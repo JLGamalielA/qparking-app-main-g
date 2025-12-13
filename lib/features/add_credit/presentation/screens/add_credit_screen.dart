@@ -1,21 +1,26 @@
-/// Company: CETAM
-/// Project: QParking
-/// File: add_credit_screen.dart
-/// Created on: 15/11/2025
-/// Created by: Daniel Mendoza
-/// Approved by: Daniel Mendoza
-///
-/// Changelog:
-/// - ID: 1 | Modified on: 25/11/2025 |
-/// Modified by: Gamaliel Alejandro Juarez |
-/// Description: UI standardization (Payment Form) |
+/**
+ * Company: CETAM
+ * Project: QParking
+ * File: add_credit_screen.dart
+ * Created on: 15/11/2025
+ * Created by: Daniel Mendoza
+ * Approved by: Daniel Mendoza
+ *
+ * Changelog:
+ * - ID: 2 | Modified on: 12/12/2025 |
+ * Modified by: Rodrigo Peña Vega |
+ * Description: Refactored to use global constants and String icon aliases. |
+ */
 library;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../core/themes/app_theme.dart';
+import 'package:qparking/core/constants/constants_exports.dart';
+import 'package:qparking/core/widgets/widgets_exports.dart';
+
+import '../../../../core/icons/app_icons.dart';
 import '../../../../core/widgets/app_dialog.dart';
 
 final selectedAmountProvider = StateProvider.autoDispose<int>((ref) => 0);
@@ -50,43 +55,58 @@ class _AddCreditScreenState extends ConsumerState<AddCreditScreen> {
     final total = selected > 0 ? selected : custom;
 
     if (total <= 0) {
-      AppDialog.show(
-        context,
-        type: DialogType.warning,
-        title: 'Monto inválido',
-        description: 'Por favor selecciona o ingresa un monto válido mayor a 0.',
+      // Show warning dialog for invalid amount
+      showDialog(
+        context: context,
+        builder: (context) =>
+            AppDialog.warning(
+              title: 'Monto inválido',
+              message: 'Por favor selecciona o ingresa un monto válido mayor a 0.',
+              onConfirm: () => context.pop(),
+            ),
       );
       return;
     }
 
-    // Confirmation Dialog
-    AppDialog.show(
-      context,
-      type: DialogType.question,
-      title: '¿Confirmar recarga?',
-      description: 'Se realizará un cargo de \$$total MXN a tu método de pago predeterminado.',
-      primaryText: 'Confirmar',
-      secondaryText: 'Cancelar',
-      onPrimary: () async {
-        Navigator.of(context).pop();
-        ref.read(loadingCreditProvider.notifier).state = true;
-        await Future.delayed(const Duration(seconds: 2));
+// Show confirmation dialog before processing payment
+    showDialog(
+      context: context,
+      builder: (context) =>
+          AppDialog.confirm(
+            title: '¿Confirmar recarga?',
+            message: 'Se realizará un cargo de \$$total MXN a tu método de pago predeterminado.',
+            onConfirm: () async {
+              // Close the confirmation dialog first
+              context.pop();
 
-        if (!mounted) return;
-        ref.read(loadingCreditProvider.notifier).state = false;
+              ref
+                  .read(loadingCreditProvider.notifier)
+                  .state = true;
+              await Future.delayed(const Duration(seconds: 2));
 
-        // Success Dialog
-        AppDialog.show(
-          context,
-          type: DialogType.success,
-          title: 'Recarga Exitosa',
-          description: 'Tu saldo ha sido actualizado correctamente.',
-          onPrimary: () {
-            context.pop();
-            context.pop();
-          },
-        );
-      },
+              if (!mounted) return;
+              ref
+                  .read(loadingCreditProvider.notifier)
+                  .state = false;
+
+              // Show success dialog after processing
+              if (context.mounted) {
+                showDialog(
+                  context: context,
+                  builder: (context) =>
+                      AppDialog.success(
+                        title: 'Recarga Exitosa',
+                        message: 'Tu saldo ha sido actualizado correctamente.',
+                        onConfirm: () {
+                          // Close dialog and return to previous screens
+                          context.pop();
+                          context.pop();
+                        },
+                      ),
+                );
+              }
+            },
+          ),
     );
   }
 
@@ -96,21 +116,22 @@ class _AddCreditScreenState extends ConsumerState<AddCreditScreen> {
     final isLoading = ref.watch(loadingCreditProvider);
 
     return Scaffold(
-      backgroundColor: AppTheme.gray50,
+      backgroundColor: GRAY_50, // Replaced AppTheme.gray50
 
       // --- AppBar  ---
       appBar: AppBar(
-        backgroundColor: AppTheme.white,
+        backgroundColor: WHITE_COLOR, // Replaced AppTheme.white
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppTheme.primary),
+          // Use String alias 'back'
+          icon: const AppIcon(name: AppIconName.back, color: PRIMARY_COLOR),
           onPressed: () => context.pop(),
         ),
         title: const Text(
           'Recargar Saldo',
           style: TextStyle(
-            color: AppTheme.primary,
+            color: PRIMARY_COLOR, // Replaced AppTheme.primary
             fontWeight: FontWeight.w700,
             fontSize: 20,
           ),
@@ -128,14 +149,14 @@ class _AddCreditScreenState extends ConsumerState<AddCreditScreen> {
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
-                    colors: [AppTheme.primary, AppTheme.tertiary],
+                    colors: [PRIMARY_COLOR, TERTIARY_COLOR],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
-                      color: AppTheme.primary.withOpacity(0.2),
+                      color: PRIMARY_COLOR.withOpacity(0.2),
                       blurRadius: 12,
                       offset: const Offset(0, 6),
                     ),
@@ -146,7 +167,7 @@ class _AddCreditScreenState extends ConsumerState<AddCreditScreen> {
                     const Text(
                       'Saldo Actual',
                       style: TextStyle(
-                        color: AppTheme.gray200,
+                        color: GRAY_200, // Replaced AppTheme.gray200
                         fontSize: 14,
                       ),
                     ),
@@ -154,7 +175,7 @@ class _AddCreditScreenState extends ConsumerState<AddCreditScreen> {
                     const Text(
                       '\$150.00',
                       style: TextStyle(
-                        color: AppTheme.white,
+                        color: WHITE_COLOR, // Replaced AppTheme.white
                         fontSize: 32,
                         fontWeight: FontWeight.w700,
                       ),
@@ -163,12 +184,12 @@ class _AddCreditScreenState extends ConsumerState<AddCreditScreen> {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                       decoration: BoxDecoration(
-                        color: AppTheme.primary,
+                        color: PRIMARY_COLOR, // Replaced AppTheme.primary
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: const Text(
                         'Cuenta Activa',
-                        style: TextStyle(color: AppTheme.white, fontSize: 12),
+                        style: TextStyle(color: WHITE_COLOR, fontSize: 12),
                       ),
                     ),
                   ],
@@ -182,7 +203,7 @@ class _AddCreditScreenState extends ConsumerState<AddCreditScreen> {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w700,
-                  color: AppTheme.primary,
+                  color: PRIMARY_COLOR,
                 ),
               ),
               const SizedBox(height: 16),
@@ -228,7 +249,7 @@ class _AddCreditScreenState extends ConsumerState<AddCreditScreen> {
                       'O ingresa otro monto',
                       style: TextStyle(
                         fontSize: 14,
-                        color: AppTheme.gray600,
+                        color: GRAY_600, // Replaced AppTheme.gray600
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -246,7 +267,8 @@ class _AddCreditScreenState extends ConsumerState<AddCreditScreen> {
                         },
                         decoration: const InputDecoration(
                           labelText: 'Monto personalizado',
-                          prefixIcon: Icon(Icons.attach_money),
+                          // Use String alias 'money'
+                          prefixIcon: AppIcon(name: AppIconName.money , color: PRIMARY_COLOR, size: 20),
                           suffixText: 'MXN',
                         ),
                       ),
@@ -263,17 +285,18 @@ class _AddCreditScreenState extends ConsumerState<AddCreditScreen> {
                 child: ElevatedButton.icon(
                   onPressed: isLoading ? null : _onPay,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: AppTheme.success,
-                    foregroundColor: AppTheme.white,
+                    backgroundColor: SUCCESS_COLOR, // Replaced AppTheme.success
+                    foregroundColor: WHITE_COLOR,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                   icon: isLoading
                       ? const SizedBox.shrink()
-                      : const Icon(Icons.payment, size: 22),
+                  // Use String alias 'card' or 'payment' for icon
+                      : const AppIcon(name: AppIconName.card, size: 22, color: WHITE_COLOR),
                   label: isLoading
-                      ? const CircularProgressIndicator(color: AppTheme.white)
+                      ? const CircularProgressIndicator(color: WHITE_COLOR)
                       : const Text('Realizar Recarga'),
                 ),
               ),
@@ -309,16 +332,16 @@ class _AmountOption extends StatelessWidget {
         height: 60,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: isSelected ? AppTheme.primary : AppTheme.white,
+          color: isSelected ? PRIMARY_COLOR : WHITE_COLOR, // Replaced AppTheme
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: isSelected ? AppTheme.primary : AppTheme.gray300,
+            color: isSelected ? PRIMARY_COLOR : GRAY_300,
             width: 1.5,
           ),
           boxShadow: isSelected
               ? [
             BoxShadow(
-              color: AppTheme.primary.withOpacity(0.3),
+              color: PRIMARY_COLOR.withOpacity(0.3),
               blurRadius: 8,
               offset: const Offset(0, 4),
             )
@@ -330,7 +353,7 @@ class _AmountOption extends StatelessWidget {
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w700,
-            color: isSelected ? AppTheme.white : AppTheme.primary,
+            color: isSelected ? WHITE_COLOR : PRIMARY_COLOR,
           ),
         ),
       ),

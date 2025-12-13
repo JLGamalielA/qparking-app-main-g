@@ -1,0 +1,1 @@
+ C:\\Users\\berpy\\Downloads\\qparking-app\\.dart_tool\\flutter_build\\db614fbed9f508a8fa0df72168d02d01\\native_assets.yaml: 

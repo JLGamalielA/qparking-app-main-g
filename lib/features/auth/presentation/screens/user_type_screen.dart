@@ -17,7 +17,7 @@ library;
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/icons/app_icons.dart';
-import '../../../../core/themes/app_theme.dart';
+import '../../../../core/theme/app_theme.dart';
 import '../../../../core/widgets/app_icon.dart';
 import '../widgets/user_type_card_widget.dart';
 

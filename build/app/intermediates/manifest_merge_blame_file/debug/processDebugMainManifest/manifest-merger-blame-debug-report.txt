@@ -69,9 +69,9 @@
 53            android:windowSoftInputMode="adjustResize" >
 54
 55            <!--
-56                 Specifies an Android themes to apply to this Activity as soon as
-57                 the Android process has started. This themes is visible to the user
-58                 while the Flutter UI initializes. After that, this themes continues
+56                 Specifies an Android theme to apply to this Activity as soon as
+57                 the Android process has started. This theme is visible to the user
+58                 while the Flutter UI initializes. After that, this theme continues
 59                 to determine the Window background behind the Flutter UI.
 60            -->
 61            <meta-data

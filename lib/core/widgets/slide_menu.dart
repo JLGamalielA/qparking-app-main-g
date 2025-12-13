@@ -1,13 +1,20 @@
-/// Company: CETAM
-/// Project: QParking
-/// File: slide_menu.dart
-/// Modified on: 05/12/2025
-/// Description: Side menu with corrected navigation items and standardized icons.
+/**
+ * Company: CETAM
+ * Project: QParking
+ * File: slide_menu.dart
+ * Created on: 12/12/2025
+ * Created by: Rodrigo Peña
+ * Approved by: CETAM Dev Team
+ *
+ * Changelog:
+ * - ID: 7 | Modified on: 13/12/2025 | Rodrigo Peña | Restored Company Logo, increased button size, and fixed vertical spacing.
+ */
 library;
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../themes/app_theme.dart';
+
+import '../theme/app_theme.dart';
 import '../icons/app_icons.dart';
 import 'app_icon.dart';
 
@@ -16,9 +23,8 @@ class SlideMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Connect with AuthProvider for real user data
-    const String userName = "QParking Admin";
-    const String userEmail = "admin@qparking.mx";
+    const String userName = "Daniel Mendoza";
+    const String userEmail = "daniel.mendoza@cetam.mx";
 
     return Drawer(
       backgroundColor: AppTheme.primary,
@@ -32,75 +38,85 @@ class SlideMenu extends StatelessWidget {
       child: SafeArea(
         child: Column(
           children: [
-            // --- 1. User Header (Logo & Info) ---
+            // --- HEADER ---
             Container(
-              padding: const EdgeInsets.fromLTRB(24, 30, 24, 20),
+              padding: const EdgeInsets.fromLTRB(12, 30, 12, 10),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const CircleAvatar(
-                        radius: 24,
-                        backgroundColor: AppTheme.gray600,
-                        // Main Logo from Assets
-                        backgroundImage: AssetImage('assets/images/logo_qparking.png'),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text(
-                              userName,
-                              style: TextStyle(
-                                color: AppTheme.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            Text(
-                              userEmail,
-                              style: TextStyle(
-                                color: AppTheme.gray400,
-                                fontSize: 13,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ],
+                  // Fila de Logo y Texto
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        // CORRECCIÓN 1: LOGO DE LA EMPRESA
+                        const CircleAvatar(
+                          radius: 28, // Un poco más grande para destacar
+                          backgroundColor: Colors.transparent, // Fondo transparente para el PNG
+                          backgroundImage: AssetImage('assets/images/logo_qparking.png'),
                         ),
-                      ),
-                    ],
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: const [
+                              Text(
+                                userName,
+                                style: TextStyle(
+                                  color: AppTheme.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              Text(
+                                userEmail,
+                                style: TextStyle(
+                                  color: AppTheme.gray400,
+                                  fontSize: 13,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  const SizedBox(height: 20),
 
-                  // Profile Button
+                  // CORRECCIÓN 2: ESPACIADO AUMENTADO
+                  // Antes era 8, ahora 24 para separar bien la info del botón
+                  const SizedBox(height: 24),
+
+                  // CORRECCIÓN 3: BOTÓN MÁS GRANDE Y LEGIBLE
                   SizedBox(
-                    height: 40,
+                    height: 48, // Altura aumentada (antes 40)
                     width: double.infinity,
-                    child: OutlinedButton.icon(
+                    child: TextButton.icon(
                       onPressed: () {
                         context.pop();
                         context.push('/profile');
                       },
-                      style: OutlinedButton.styleFrom(
-                        side: const BorderSide(color: AppTheme.gray500),
-                        foregroundColor: AppTheme.white,
+                      style: TextButton.styleFrom(
+                        foregroundColor: AppTheme.gray400,
+                        alignment: Alignment.centerLeft,
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        alignment: Alignment.centerLeft,
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
                       ),
                       icon: const AppIcon(
-                          name: AppIconName.userTie,
-                          size: 16,
-                          color: AppTheme.white
+                          name: AppIconName.user,
+                          size: 22, // Icono más grande (antes 16)
+                          color: AppTheme.gray400
                       ),
                       label: const Text(
-                        'Mi perfil', // Text can remain in Spanish for UI
-                        style: TextStyle(fontWeight: FontWeight.w500),
+                          'Mi perfil',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600, // Letra con más peso
+                            fontSize: 15, // Letra más grande (antes 13)
+                          )
                       ),
                     ),
                   ),
@@ -108,7 +124,7 @@ class SlideMenu extends StatelessWidget {
               ),
             ),
 
-            const Divider(color: AppTheme.gray700, height: 1),
+            const Divider(color: AppTheme.gray600, height: 1),
             const SizedBox(height: 10),
 
             // Section Title
@@ -128,7 +144,7 @@ class SlideMenu extends StatelessWidget {
               ),
             ),
 
-            // --- 2. Navigation Options ---
+            // Navigation Items
             Expanded(
               child: ListView(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -136,21 +152,13 @@ class SlideMenu extends StatelessWidget {
                   _DrawerItem(
                     iconName: AppIconName.home,
                     label: 'Inicio',
-                    isActive: true, // Logic to determine active state
+                    isActive: true,
                     onTap: () {
                       context.pop();
                       context.go('/home');
                     },
                   ),
-                  _DrawerItem(
-                    iconName: AppIconName.money,
-                    label: 'Recargar Saldo',
-                    onTap: () {
-                      context.pop();
-                      context.push('/add_credit');
-                    },
-                  ),
-                  // FIX 1: Bank Card uses AppIconName.card (ICON), not ImagePath
+
                   _DrawerItem(
                     iconName: AppIconName.card,
                     label: 'Tarjeta',
@@ -159,20 +167,35 @@ class SlideMenu extends StatelessWidget {
                       context.push('/bank_card');
                     },
                   ),
-                  // FIX 2: Restored "Activity" item pointing to /activity
                   _DrawerItem(
-                    iconName: AppIconName.list, // Using 'list' icon for activity table
+                    iconName: AppIconName.list,
                     label: 'Actividad',
                     onTap: () {
                       context.pop();
                       context.push('/activity');
                     },
                   ),
+                  _DrawerItem(
+                    iconName: AppIconName.star,
+                    label: 'Suscripciones',
+                    onTap: () {
+                      context.pop();
+                      context.push('/subscriptions');
+                    },
+                  ),
+                  _DrawerItem(
+                    iconName: AppIconName.userTie,
+                    label: 'Solicitudes',
+                    onTap: () {
+                      context.pop();
+                      context.push('/show_requests');
+                    },
+                  ),
                 ],
               ),
             ),
 
-            // --- 3. Footer ---
+            // Footer
             Padding(
               padding: const EdgeInsets.all(24),
               child: _DrawerItem(
@@ -192,7 +215,6 @@ class SlideMenu extends StatelessWidget {
   }
 }
 
-// Helper Widget for Drawer Items
 class _DrawerItem extends StatelessWidget {
   final AppIconName? iconName;
   final String? imagePath;
@@ -211,12 +233,12 @@ class _DrawerItem extends StatelessWidget {
     this.isActive = false,
     this.textColor,
     this.iconColor,
-  }) : assert(iconName != null || imagePath != null, 'You must provide either iconName or imagePath');
+  }) : assert(iconName != null || imagePath != null, 'Provide iconName or imagePath');
 
   @override
   Widget build(BuildContext context) {
     final finalIconColor = iconColor ?? (isActive ? AppTheme.white : AppTheme.gray400);
-    final finalTextColor = textColor ?? (isActive ? AppTheme.white : AppTheme.gray100);
+    final finalTextColor = textColor ?? (isActive ? AppTheme.white : AppTheme.gray50);
 
     return ListTile(
       leading: _buildLeadingIcon(finalIconColor),
@@ -238,12 +260,7 @@ class _DrawerItem extends StatelessWidget {
 
   Widget _buildLeadingIcon(Color color) {
     if (imagePath != null) {
-      return Image.asset(
-        imagePath!,
-        width: 24, // Standard size
-        height: 24,
-        fit: BoxFit.contain,
-      );
+      return Image.asset(imagePath!, width: 24, height: 24, fit: BoxFit.contain);
     }
     return AppIcon(
       name: iconName!,

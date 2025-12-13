@@ -1,0 +1,16 @@
+{
+  "@@locale": "en",
+  "app_name": "QParking",
+  "login_subtitle": "Access with your account to manage\nyour parking.",
+  "form_email_label": "Email Address",
+  "form_password_label": "Password",
+  "action_login": "Login",
+  "action_register": "Register",
+  "login_no_account": "Don't have an account?",
+  "error_required_field": "Required field",
+  "user_type_title": "What type of user are you?",
+  "user_type_normal_title": "Normal User",
+  "user_type_normal_desc": "Register as a normal user if you only want to use, enter, and pay for parking regularly.",
+  "user_type_special_title": "Special User",
+  "user_type_special_desc": "Register as a special user if you are a supplier, taxi, or have an agreement with an affiliated parking lot."
+}
