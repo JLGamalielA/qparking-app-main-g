@@ -4,28 +4,38 @@
  * File: subscriptions_screen.dart
  * Created on: 13/12/2025
  * Created by: Rodrigo Peña
+ * Modified by: Rodrigo Peña
  * Approved by: Gamaliel Juarez
  *
  * Changelog:
- * - ID: 1 | Modified on: 13/12/2025 | Rodrigo Peña | Initial creation of Subscriptions screen with card-based layout for plans.
+ * - ID: 2 | Modified on: 13/12/2025 | Rodrigo Peña | Updated plans to Basic and Premium with specific feature visibility.
  */
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qparking/core/theme/app_theme.dart';
+import 'package:qparking/core/utils/app_alerts.dart'; // Import alerts
 import 'package:qparking/core/widgets/app_icon.dart';
 import 'package:qparking/core/icons/app_icons.dart';
 
-// Standard border radius for consistency
+// Standard border radius
 const double _kStandardBorderRadius = 12.0;
 
-// --- MOCK DATA MODEL (Local for UI structure) ---
+// --- MOCK DATA MODELS ---
+class _FeatureItem {
+  final String label;
+  final bool included;
+
+  _FeatureItem(this.label, {this.included = true});
+}
+
 class _SubscriptionPlan {
   final String name;
   final String priceLabel;
   final String tag;
   final Color headerColor;
   final String buttonText;
+  final List<_FeatureItem> features;
 
   _SubscriptionPlan({
     required this.name,
@@ -33,6 +43,7 @@ class _SubscriptionPlan {
     required this.tag,
     required this.headerColor,
     required this.buttonText,
+    required this.features,
   });
 }
 
@@ -43,35 +54,45 @@ class SubscriptionsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     const String userInitials = "DM";
 
-    //Mock data definitions
+    // --- DEFINING THE 2 PLANS ---
     final List<_SubscriptionPlan> plans = [
+      // 1. BASIC PLAN
       _SubscriptionPlan(
-        name: "Individual Mensual",
-        priceLabel: "\$150 / mes",
-        tag: "1 cuenta",
-        headerColor: AppTheme.primary, // Standard dark blue
-        buttonText: "Contratar Individual",
+        name: "Plan Básico",
+        priceLabel: "\$119 / mes",
+        tag: "Uso estándar",
+        headerColor: AppTheme.primary, // Dark Blue (Standard)
+        buttonText: "Contratar Básico",
+        features: [
+          _FeatureItem("Generación de códigos QR"),
+          _FeatureItem("Acceso a estacionamientos"),
+          _FeatureItem("Pagos con tarjeta"),
+          _FeatureItem("Soporte técnico"),
+          _FeatureItem("Historial de Actividad", included: false), // NOT INCLUDED
+        ],
       ),
+
+      // 2. PREMIUM PLAN
       _SubscriptionPlan(
-        name: "Estudiante",
-        priceLabel: "\$80 / mes",
-        tag: "1 cuenta (Requiere validación)",
-        headerColor: AppTheme.indigo, // A brighter purple/blue for distinction
-        buttonText: "Contratar Estudiante",
-      ),
-      _SubscriptionPlan(
-        name: "Familiar",
-        priceLabel: "\$250 / mes",
-        tag: "Hasta 4 cuentas",
-        headerColor: AppTheme.tertiary, // A different tone for premium tier
-        buttonText: "Contratar Familiar",
+        name: "Plan Premium",
+        priceLabel: "\$349 / mes",
+        tag: "Acceso Total",
+        headerColor: AppTheme.secondary, // Orange/Red (Highlight)
+        buttonText: "Contratar Premium",
+        features: [
+          _FeatureItem("Generación de códigos QR "),
+          _FeatureItem("Acceso a estacionamientos"),
+          _FeatureItem("Pagos con tarjeta"),
+          _FeatureItem("Soporte técnico"),
+          _FeatureItem("Historial de Actividad Completo"), // INCLUDED
+        ],
       ),
     ];
 
     return Scaffold(
       backgroundColor: AppTheme.gray50,
 
-      // --- STANDARD DARK HEADER ---
+      // --- DARK HEADER ---
       appBar: AppBar(
         backgroundColor: AppTheme.primary,
         elevation: 0,
@@ -122,7 +143,7 @@ class SubscriptionsScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                'Selecciona tu plan ideal',
+                'Mejora tu experiencia',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w700,
@@ -131,7 +152,7 @@ class SubscriptionsScreen extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               const Text(
-                'Disfruta de acceso ilimitado y beneficios exclusivos.',
+                'Elige el plan que mejor se adapte a tus necesidades de movilidad.',
                 style: TextStyle(
                   fontSize: 14,
                   color: AppTheme.gray600,
@@ -141,8 +162,8 @@ class SubscriptionsScreen extends StatelessWidget {
 
               // --- PLAN CARDS LIST ---
               ListView.separated(
-                shrinkWrap: true, // Important inside SingleChildScrollView
-                physics: const NeverScrollableScrollPhysics(), // Disable internal scrolling
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: plans.length,
                 separatorBuilder: (_, __) => const SizedBox(height: 24),
                 itemBuilder: (context, index) {
@@ -151,11 +172,12 @@ class SubscriptionsScreen extends StatelessWidget {
               ),
 
               const SizedBox(height: 32),
-              // Cancel info at bottom
+
+              // Footer link
               Center(
                 child: TextButton(
                   onPressed: () {
-                    // TODO: Navigate to terms conditions
+                    // TODO: Terms navigation
                   },
                   child: const Text(
                     'Términos y condiciones de suscripción',
@@ -177,22 +199,30 @@ class _PlanCardWidget extends StatelessWidget {
 
   const _PlanCardWidget({required this.plan});
 
-  // Helper for blank feature placeholders
-  Widget _buildFeaturePlaceholder() {
+  // Feature row builder
+  Widget _buildFeatureRow(String text, bool included) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(Icons.check, size: 20, color: plan.headerColor.withOpacity(0.7)),
+          Icon(
+              included ? Icons.check_circle : Icons.cancel,
+              size: 20,
+              color: included ? plan.headerColor : AppTheme.gray400 // Grey if not included
+          ),
           const SizedBox(width: 12),
-          Container(
-            height: 12,
-            width: 150, // Fixed width for placeholder
-            decoration: BoxDecoration(
-                color: AppTheme.gray100,
-                borderRadius: BorderRadius.circular(4)
+          Expanded(
+            child: Text(
+              text,
+              style: TextStyle(
+                fontSize: 14,
+                color: included ? AppTheme.gray700 : AppTheme.gray400,
+                // Strike-through if excluded
+                decoration: included ? null : TextDecoration.lineThrough,
+              ),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -201,7 +231,6 @@ class _PlanCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // Using hardEdge to clip the colored banner container correctly within rounded corners
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         color: AppTheme.white,
@@ -229,40 +258,47 @@ class _PlanCardWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Plan Name
-                Text(
-                  plan.name,
-                  style: const TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w800,
-                    color: AppTheme.primary,
-                  ),
+                // Name & Price
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        plan.name,
+                        style: const TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w800,
+                          color: AppTheme.primary,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: plan.headerColor.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        plan.tag,
+                        style: TextStyle(
+                          color: plan.headerColor,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 8),
-                // Price Label
+
+                const SizedBox(height: 4),
+
                 Text(
                   plan.priceLabel,
-                  style: const TextStyle(
-                    fontSize: 16,
+                  style: TextStyle(
+                    fontSize: 18,
                     fontWeight: FontWeight.w600,
-                    color: AppTheme.gray700,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                // Tag Container
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: plan.headerColor.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Text(
-                    plan.tag,
-                    style: TextStyle(
-                      color: plan.headerColor,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    color: plan.headerColor, // Price matches theme color
                   ),
                 ),
 
@@ -271,12 +307,8 @@ class _PlanCardWidget extends StatelessWidget {
                   child: Divider(color: AppTheme.gray200),
                 ),
 
-                // --- Features Section (BLANK PLACEHOLDERS as requested) ---
-                // We use visual placeholders instead of empty space to maintain card structure
-                _buildFeaturePlaceholder(),
-                _buildFeaturePlaceholder(),
-                _buildFeaturePlaceholder(),
-                _buildFeaturePlaceholder(),
+                // --- Features List ---
+                ...plan.features.map((f) => _buildFeatureRow(f.label, f.included)),
 
                 const SizedBox(height: 24),
 
@@ -286,7 +318,7 @@ class _PlanCardWidget extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: plan.headerColor, // Button matches plan color
+                        backgroundColor: plan.headerColor,
                         foregroundColor: AppTheme.white,
                         elevation: 0,
                         shape: RoundedRectangleBorder(
@@ -298,7 +330,15 @@ class _PlanCardWidget extends StatelessWidget {
                         )
                     ),
                     onPressed: () {
-                      // TODO: Handle subscription selection logic
+                      // Standard Alert Success 7.4.1
+                      AppAlerts.showSuccess(
+                        context: context,
+                        title: "¡Excelente elección!",
+                        message: "Has seleccionado el ${plan.name}. Serás redirigido al pago.",
+                        onOk: () {
+                          context.push('/bank_card');
+                        },
+                      );
                     },
                     child: Text(plan.buttonText),
                   ),

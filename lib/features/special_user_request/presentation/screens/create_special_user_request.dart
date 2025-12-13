@@ -8,7 +8,8 @@
  * Approved by: Gamaliel Juarez
  *
  * Changelog:
- * - ID: 2 | Modified on: 13/12/2025 | Rodrigo Peña | Standardized form UI, colors, and AppBar to match design system.
+ * - ID: 3 | Modified on: 13/12/2025 | Rodrigo Peña |
+ * Removed vehicle plates field and moved parking selection to the first position.
  */
 
 import 'package:flutter/material.dart';
@@ -16,13 +17,15 @@ import 'package:go_router/go_router.dart';
 import 'package:qparking/core/theme/app_theme.dart';
 import 'package:qparking/core/widgets/app_icon.dart';
 import 'package:qparking/core/icons/app_icons.dart';
+import 'package:qparking/core/utils/app_alerts.dart';
 
+// Standard border radius constant
 const double _kStandardBorderRadius = 12.0;
 
 class CreateSpecialUserRequest extends StatelessWidget {
   const CreateSpecialUserRequest({super.key});
 
-  // Helper Labels
+  // Helper for Section Labels
   Widget _sectionLabel(String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
@@ -37,6 +40,7 @@ class CreateSpecialUserRequest extends StatelessWidget {
     );
   }
 
+  // Standardized Input Decoration
   InputDecoration _inputDecoration({String? hint}) {
     return InputDecoration(
       hintText: hint,
@@ -66,7 +70,7 @@ class CreateSpecialUserRequest extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppTheme.gray50,
 
-      // --- HEADER  ---
+      // --- STANDARD DARK HEADER ---
       appBar: AppBar(
         backgroundColor: AppTheme.primary,
         elevation: 0,
@@ -76,7 +80,7 @@ class CreateSpecialUserRequest extends StatelessWidget {
           onPressed: () => context.pop(),
         ),
         title: const Text(
-          'Solicitud de Proveedor',
+          'Solicitud Especial',
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w700,
@@ -115,7 +119,7 @@ class CreateSpecialUserRequest extends StatelessWidget {
           padding: const EdgeInsets.all(24),
           child: Column(
             children: [
-              // Contenedor tipo Tarjeta
+              // --- Form Container ---
               Container(
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
@@ -133,49 +137,51 @@ class CreateSpecialUserRequest extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    _sectionLabel('Placas del Vehículo'),
-                    SizedBox(
-                      height: 56,
-                      child: TextField(
-                        decoration: _inputDecoration(hint: 'Ej: ABC-123'),
-                        keyboardType: TextInputType.text,
-                      ),
-                    ),
-                    const SizedBox(height: 24),
-
-                    _sectionLabel('Tipo de usuario'),
-                    DropdownButtonFormField<String>(
-                      decoration: _inputDecoration(hint: 'Seleccione un tipo'),
-                      icon: const Icon(Icons.keyboard_arrow_down, color: AppTheme.gray500),
-                      dropdownColor: AppTheme.white,
-                      items: ['Proveedor', 'Taxista', 'Empleado']
-                          .map((e) => DropdownMenuItem(value: e, child: Text(e, style: const TextStyle(fontSize: 14))))
-                          .toList(),
-                      onChanged: (val) {},
-                    ),
-                    const SizedBox(height: 24),
-
-                    _sectionLabel('Descripción de la solicitud'),
-                    TextField(
-                      decoration: _inputDecoration(hint: 'Añada una breve justificación...'),
-                      maxLines: 4,
-                    ),
-                    const SizedBox(height: 24),
-
-                    _sectionLabel('Estacionamiento'),
+                    // 1. Select Parking (NOW FIRST OPTION)
+                    _sectionLabel('Seleccionar Estacionamiento'),
                     DropdownButtonFormField<String>(
                       decoration: _inputDecoration(hint: 'Seleccione una opción'),
                       icon: const Icon(Icons.keyboard_arrow_down, color: AppTheme.gray500),
                       dropdownColor: AppTheme.white,
-                      items: ['Plaza Central', 'Torre Norte']
-                          .map((e) => DropdownMenuItem(value: e, child: Text(e, style: const TextStyle(fontSize: 14))))
+                      items: ['Plaza Central', 'Torre Norte', 'Centro Histórico']
+                          .map((e) => DropdownMenuItem(
+                          value: e,
+                          child: Text(e, style: const TextStyle(fontSize: 14))
+                      ))
                           .toList(),
                       onChanged: (val) {},
                     ),
+                    const SizedBox(height: 24),
+
+                    // 2. User Type
+                    _sectionLabel('Tipo de usuario solicitado'),
+                    DropdownButtonFormField<String>(
+                      decoration: _inputDecoration(hint: 'Seleccione un tipo'),
+                      icon: const Icon(Icons.keyboard_arrow_down, color: AppTheme.gray500),
+                      dropdownColor: AppTheme.white,
+                      items: ['Proveedor', 'Taxista', 'Empleado', 'Residente']
+                          .map((e) => DropdownMenuItem(
+                          value: e,
+                          child: Text(e, style: const TextStyle(fontSize: 14))
+                      ))
+                          .toList(),
+                      onChanged: (val) {},
+                    ),
+                    const SizedBox(height: 24),
+
+                    // 3. Justification / Description
+                    _sectionLabel('Descripción de la solicitud'),
+                    TextField(
+                      decoration: _inputDecoration(hint: 'Añada una breve justificación...'),
+                      maxLines: 5,
+                      maxLength: 250, // Character limit as per instructions
+                    ),
                     const SizedBox(height: 32),
 
+                    // 4. Submit Button
                     SizedBox(
                       height: 52,
+                      width: double.infinity,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppTheme.primary,
@@ -186,14 +192,13 @@ class CreateSpecialUserRequest extends StatelessWidget {
                           ),
                         ),
                         onPressed: () {
-                          // Acción de enviar
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Solicitud Enviada'),
-                              backgroundColor: AppTheme.success,
-                            ),
+                          // Standard Success Alert 7.4.1
+                          AppAlerts.showSuccess(
+                            context: context,
+                            title: "Solicitud Enviada",
+                            message: "Tu solicitud ha sido recibida y será revisada por un administrador.",
+                            onOk: () => context.pop(),
                           );
-                          context.pop();
                         },
                         child: const Text(
                           'Enviar Solicitud',

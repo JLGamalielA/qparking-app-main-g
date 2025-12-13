@@ -8,7 +8,9 @@
  * Approved by: Gamaliel Juarez
  *
  * Changelog:
- * - ID: 2 | Modified on: 13/12/2025 | Rodrigo Peña | Added 'Membership & User Type' section and dynamic initials logic.
+ * - ID: 2 | Modified on: 13/12/2025 | Rodrigo Peña |
+ * Added 'Membership & User Type' section and dynamic initials logic.
+ * Translated all code comments to English.
  */
 
 import 'package:flutter/material.dart';
@@ -18,6 +20,7 @@ import 'package:qparking/core/theme/app_theme.dart';
 import 'package:qparking/core/widgets/app_icon.dart';
 import 'package:qparking/core/icons/app_icons.dart';
 
+// Standard border radius used across the application
 const double _kStandardBorderRadius = 12.0;
 
 class ProfileScreen extends ConsumerWidget {
@@ -25,13 +28,13 @@ class ProfileScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // ---Simulated Data ---
+    // --- Simulated Data (Future Backend Integration) ---
     final String userName = "Daniel Mendoza";
     final String userEmail = "daniel.mendoza@cetam.mx";
-    final String userType = "Usuario Especial"; // Dato dinámico
-    final String currentPlan = "Plan Pro"; // Dato dinámico
+    final String userType = "Usuario Especial"; // Dynamic user level
+    final String currentPlan = "Plan Pro"; // Dynamic subscription plan
 
-    //Logic to get auto name
+    // Logic to automatically extract initials from the full name
     final String userInitials = userName.trim().split(' ').length >= 2
         ? '${userName.trim().split(' ')[0][0]}${userName.trim().split(' ')[1][0]}'
         : userName.isNotEmpty ? userName[0] : "?";
@@ -42,6 +45,7 @@ class ProfileScreen extends ConsumerWidget {
         backgroundColor: AppTheme.primary,
         elevation: 0,
         centerTitle: true,
+        // Ensure navigation icons are white to match the dark theme
         iconTheme: const IconThemeData(color: AppTheme.white),
         title: const Text(
           'Mi Perfil',
@@ -57,7 +61,7 @@ class ProfileScreen extends ConsumerWidget {
           padding: const EdgeInsets.all(24),
           child: Column(
             children: [
-              // --- Header Card ---
+              // --- Profile Summary Header Card ---
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(24),
@@ -75,11 +79,12 @@ class ProfileScreen extends ConsumerWidget {
                 ),
                 child: Column(
                   children: [
+                    // Main Avatar Circle
                     CircleAvatar(
                       radius: 40,
                       backgroundColor: AppTheme.primary.withOpacity(0.1),
                       child: Text(
-                        userInitials, // Ahora usa la variable calculada
+                        userInitials, // Display computed initials
                         style: const TextStyle(
                           fontSize: 28,
                           fontWeight: FontWeight.w700,
@@ -88,6 +93,7 @@ class ProfileScreen extends ConsumerWidget {
                       ),
                     ),
                     const SizedBox(height: 16),
+                    // User Display Name
                     Text(
                       userName,
                       style: const TextStyle(
@@ -97,6 +103,7 @@ class ProfileScreen extends ConsumerWidget {
                       ),
                     ),
                     const SizedBox(height: 4),
+                    // User Email
                     Text(
                       userEmail,
                       style: const TextStyle(
@@ -149,7 +156,7 @@ class ProfileScreen extends ConsumerWidget {
                     const _ProfileListTile(
                       icon: AppIconName.phone,
                       label: 'Teléfono',
-                      value: '+52 55 1234 5678',
+                      value: '+52 55 1234 5678', // Placeholder data
                     ),
                   ],
                 ),
@@ -157,7 +164,7 @@ class ProfileScreen extends ConsumerWidget {
 
               const SizedBox(height: 24),
 
-              // --- Type of Membership ---
+              // --- Membership and Tier Section ---
               const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -181,17 +188,17 @@ class ProfileScreen extends ConsumerWidget {
                 child: Column(
                   children: [
                     _ProfileListTile(
-                      icon: AppIconName.userTie, // Icono para tipo de usuario (userTie o shield)
+                      icon: AppIconName.userTie, // Icon representing professional or special status
                       label: 'Tipo de usuario',
-                      value: userType, // Variable dinámica
-                      valueColor: AppTheme.tertiary, // Resaltado visual (opcional)
+                      value: userType,
+                      valueColor: AppTheme.tertiary, // Emphasis for special status
                     ),
                     const Divider(height: 1, color: AppTheme.gray200),
                     _ProfileListTile(
-                      icon: AppIconName.card, // Icono para plan
+                      icon: AppIconName.card, // Icon representing subscription status
                       label: 'Plan actual',
-                      value: currentPlan, // Variable dinámica
-                      valueColor: AppTheme.success, // Verde para indicar activo
+                      value: currentPlan,
+                      valueColor: AppTheme.success, // Success color for active plans
                     ),
                   ],
                 ),
@@ -199,7 +206,7 @@ class ProfileScreen extends ConsumerWidget {
 
               const SizedBox(height: 32),
 
-              // --- Logout Button ---
+              // --- Session Management ---
               SizedBox(
                 height: 52,
                 width: double.infinity,
@@ -212,6 +219,7 @@ class ProfileScreen extends ConsumerWidget {
                     ),
                   ),
                   onPressed: () {
+                    // Logic to clear user session and redirect to Login
                     context.go('/login');
                   },
                   icon: const AppIcon(
@@ -234,7 +242,7 @@ class ProfileScreen extends ConsumerWidget {
   }
 }
 
-// Widget auxiliar
+/// Helper widget to display profile items consistently
 class _ProfileListTile extends StatelessWidget {
   final AppIconName icon;
   final String label;

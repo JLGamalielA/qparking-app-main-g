@@ -20,7 +20,7 @@ class AppTheme {
   static const Color secondary = Color(0xFFFB503B);
   static const Color tertiary = Color(0xFF31316A);
 
-  // Colores añadidos para compatibilidad
+
   static const Color indigo = Color(0xFF4F46E5);
 
   // --- Neutrals ---
@@ -40,9 +40,6 @@ class AppTheme {
   static const Color danger = Color(0xFFE11D48);
   static const Color warning = Color(0xFFFBA918);
   static const Color info = Color(0xFF1E90FF);
-
-  // --- Alias for Compatibility ---
-  // Esto soluciona el error: mapea 'error' al color 'danger'
   static const Color error = danger;
 
   // ---------------------------------------------------------------------------

@@ -14,7 +14,7 @@ library;
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-// Imports Institucionales
+
 import '../theme/app_theme.dart';
 import '../icons/app_icons.dart';
 import 'app_icon.dart';
@@ -46,11 +46,11 @@ class AppDialog extends StatelessWidget {
   });
 
   // ---------------------------------------------------------------------------
-  // CONSTRUCTORES DE FÁBRICA (SEGÚN MANUAL SECCIÓN 7.4)
+  // FABRIC CONSTRUCTURES
   // ---------------------------------------------------------------------------
 
-  /// 1. Success Alert (Figura 41)
-  /// Uso: Operaciones exitosas. Color: Verde.
+  /// 1. Success Alert (
+
   factory AppDialog.success({
     required String title,
     required String message,
@@ -66,8 +66,8 @@ class AppDialog extends StatelessWidget {
     );
   }
 
-  /// 2. Danger/Error Alert (Figura 42)
-  /// Uso: Errores críticos. Color: Rojo.
+  /// 2. Danger/Error Alert
+
   factory AppDialog.danger({
     required String title,
     required String message,
@@ -84,8 +84,8 @@ class AppDialog extends StatelessWidget {
     );
   }
 
-  /// 3. Warning Alert (Figura 43)
-  /// Uso: Precaución. Color: Ámbar.
+  /// 3. Warning Alert
+
   factory AppDialog.warning({
     required String title,
     required String message,
@@ -101,8 +101,8 @@ class AppDialog extends StatelessWidget {
     );
   }
 
-  /// 4. Info Alert (Figura 40)
-  /// Uso: Información neutral. Color: Azul.
+  /// 4. Info Alert
+
   factory AppDialog.info({
     required String title,
     required String message,
@@ -118,8 +118,8 @@ class AppDialog extends StatelessWidget {
     );
   }
 
-  /// 5. Question/Confirm Alert (Figura 44)
-  /// Uso: Confirmar acciones destructivas.
+  /// 5. Question/Confirm Alert
+
   factory AppDialog.confirm({
     required String title,
     required String message,
@@ -135,7 +135,7 @@ class AppDialog extends StatelessWidget {
       onPrimaryPressed: onConfirm,
       secondaryButtonText: "Cancelar",
       onSecondaryPressed: onCancel,
-      isDestructive: true, // Pone el botón primario en rojo según manual
+      isDestructive: true,
     );
   }
 
@@ -146,7 +146,7 @@ class AppDialog extends StatelessWidget {
       surfaceTintColor: AppTheme.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
 
-      // Icono superior centrado
+      // Icon Sup
       icon: icon != null
           ? AppIcon(
         name: icon!,
@@ -155,7 +155,7 @@ class AppDialog extends StatelessWidget {
       )
           : null,
 
-      // Título
+      // Title
       title: Text(
         title,
         textAlign: TextAlign.center,
@@ -166,7 +166,7 @@ class AppDialog extends StatelessWidget {
         ),
       ),
 
-      // Mensaje
+      // Message
       content: Text(
         message,
         textAlign: TextAlign.center,
@@ -177,7 +177,6 @@ class AppDialog extends StatelessWidget {
         ),
       ),
 
-      // Botones de acción (Orden: Cancelar a la izq, Confirmar a la der)
       actionsAlignment: MainAxisAlignment.center,
       actions: [
         if (secondaryButtonText != null)

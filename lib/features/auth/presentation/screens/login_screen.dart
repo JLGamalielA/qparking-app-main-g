@@ -200,7 +200,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         style: const TextStyle(color: AppTheme.gray600, fontSize: 14),
                       ),
                       TextButton(
-                        onPressed: () => context.push('/user_type'),
+                        onPressed: () => context.push('/register'),
                         child: Text(
                           l10n.action_register,
                           style: const TextStyle(

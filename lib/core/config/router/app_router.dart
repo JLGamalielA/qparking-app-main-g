@@ -17,7 +17,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../features/auth/presentation/screens/login_screen.dart';
 import '../../../features/auth/presentation/screens/user_type_screen.dart';
-import '../../../features/auth/presentation/screens/register/register_normal_user_screen.dart';
+import '../../../features/auth/presentation/screens/register/register_screen.dart';
 import '../../../features/auth/presentation/screens/register/register_special_user_screen.dart';
 import '../../../features/home/presentation/screens/home_screen.dart';
 import '../../../features/qr_generator/presentation/screens/qr_generator_screen.dart';
@@ -49,8 +49,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const UserTypeScreen(),
       ),
       GoRoute(
-        path: '/register_normal_user',
-        builder: (context, state) => const RegisterNormalUserScreen(),
+        path: '/register',
+        builder: (context, state) => const RegisterScreen(),
       ),
       GoRoute(
         path: '/register_special_user',
