@@ -18,6 +18,7 @@ import 'package:qparking/core/theme/app_theme.dart';
 import 'package:qparking/core/widgets/app_icon.dart';
 import 'package:qparking/core/icons/app_icons.dart';
 import 'package:qparking/core/utils/app_alerts.dart';
+import 'package:qparking/core/utils/app_alerts.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -59,12 +60,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
   // Logic to handle registration process
   void _handleRegister() {
     if (_formKey.currentState!.validate()) {
-      // Show success alert as defined in manual 7.4.1
+
+      // VALIDATION SUCCESS -> SHOW SUCCESS ALERT (7.4.1)
       AppAlerts.showSuccess(
         context: context,
         title: "Registro Exitoso",
-        message: "Tu cuenta ha sido creada. Ahora puedes solicitar accesos especiales dentro de la aplicación.",
-        onOk: () => context.go('/login'),
+        message: "Tu cuenta ha sido creada correctamente. Por favor inicia sesión.",
+        onOk: () {
+          context.go('/login');
+        },
+      );
+
+    } else {
+      // FORM ERROR -> SHOW ERROR ALERT (7.4.2)
+      AppAlerts.showError(
+        context: context,
+        title: "Datos Incompletos",
+        message: "Por favor verifica que todos los campos estén llenos correctamente.",
       );
     }
   }

@@ -8,20 +8,27 @@
  * Approved by: Gamaliel Juarez
  *
  * Changelog:
- * - ID: 2 | Modified on: 13/12/2025 | Rodrigo Peña | Added notification bell and user initials to AppBar actions.
+ * - ID: 3 | Modified on: 13/12/2025 | Rodrigo Peña |
+ * Implemented subscription activation logic on payment confirmation.
+ * Standardized comments to English and ensured UI consistency.
  */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qparking/core/theme/app_theme.dart';
 import 'package:qparking/core/widgets/app_icon.dart';
 import 'package:qparking/core/icons/app_icons.dart';
+import 'package:qparking/core/utils/app_alerts.dart';
+import 'package:qparking/features/subscriptions/subscriptions_exports.dart';
 
+// Standard border radius used across the application
 const double _kStandardBorderRadius = 12.0;
 
-class BankCardScreen extends StatelessWidget {
+class BankCardScreen extends ConsumerWidget {
   const BankCardScreen({super.key});
 
+  // Helper widget for input field labels
   Widget _sectionLabel(String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
@@ -36,6 +43,7 @@ class BankCardScreen extends StatelessWidget {
     );
   }
 
+  // Standard decoration for form text fields based on manual 7.4
   InputDecoration _inputDecoration({String? hint, AppIconName? icon}) {
     return InputDecoration(
       hintText: hint,
@@ -62,17 +70,22 @@ class BankCardScreen extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    // Iniciales fijas para consistencia
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Current user initials for the header
     const String userInitials = "DM";
+    // Access the subscription state to handle mandatory flow
+    final bool hasPlan = ref.watch(hasActivePlanProvider);
 
     return Scaffold(
       backgroundColor: AppTheme.gray50,
 
+      // --- STANDARD DARK HEADER ---
       appBar: AppBar(
         backgroundColor: AppTheme.primary,
         elevation: 0,
         centerTitle: true,
+        // Show back button only if the user already has a plan (normal update)
+        automaticallyImplyLeading: hasPlan,
         iconTheme: const IconThemeData(color: AppTheme.white),
         title: const Text(
           'Pago con Tarjeta',
@@ -82,10 +95,11 @@ class BankCardScreen extends StatelessWidget {
             color: AppTheme.white,
           ),
         ),
-        // --- NUEVO: ACCIONES (Campana + Iniciales) ---
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              // Notification logic placeholder
+            },
             icon: const AppIcon(name: AppIconName.bell, color: AppTheme.white, size: 22),
           ),
           Padding(
@@ -115,6 +129,7 @@ class BankCardScreen extends StatelessWidget {
           padding: const EdgeInsets.all(24),
           child: Column(
             children: [
+              // Main Card Information Container
               Container(
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
@@ -141,6 +156,7 @@ class BankCardScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 32),
 
+                    // Card Number Input Section
                     _sectionLabel('Número de Tarjeta'),
                     SizedBox(
                       height: 60,
@@ -154,6 +170,7 @@ class BankCardScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 24),
 
+                    // Card Holder Name Input Section
                     _sectionLabel('Nombre del Titular'),
                     SizedBox(
                       height: 60,
@@ -166,6 +183,7 @@ class BankCardScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 24),
 
+                    // Expiration and CVV Row
                     Row(
                       children: [
                         Expanded(
@@ -208,6 +226,7 @@ class BankCardScreen extends StatelessWidget {
 
                     const SizedBox(height: 32),
 
+                    // Standard Security Message Footer
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
@@ -226,6 +245,7 @@ class BankCardScreen extends StatelessWidget {
 
                     const SizedBox(height: 24),
 
+                    // Main Action Button
                     SizedBox(
                       height: 52,
                       child: ElevatedButton(
@@ -238,7 +258,19 @@ class BankCardScreen extends StatelessWidget {
                           ),
                         ),
                         onPressed: () {
-                          context.go('/home');
+                          // Update global state: Mark user as subscribed
+                          ref.read(hasActivePlanProvider.notifier).state = true;
+
+                          // Show standard success alert (Manual 7.4.1)
+                          AppAlerts.showSuccess(
+                            context: context,
+                            title: "¡Pago Exitoso!",
+                            message: "Tu tarjeta ha sido registrada y tu plan activado correctamente.",
+                            onOk: () {
+                              // Direct navigation to Home now that the plan is active
+                              context.go('/home');
+                            },
+                          );
                         },
                         child: const Text(
                           'Confirmar Pago',

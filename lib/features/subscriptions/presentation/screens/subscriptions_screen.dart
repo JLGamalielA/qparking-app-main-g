@@ -8,20 +8,25 @@
  * Approved by: Gamaliel Juarez
  *
  * Changelog:
- * - ID: 2 | Modified on: 13/12/2025 | Rodrigo Peña | Updated plans to Basic and Premium with specific feature visibility.
+ * - ID: 3 | Modified on: 13/12/2025 | Rodrigo Peña |
+ * Implemented mandatory subscription UI logic. Hidden drawer and back button
+ * for users without an active plan.
  */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qparking/core/theme/app_theme.dart';
-import 'package:qparking/core/utils/app_alerts.dart'; // Import alerts
+import 'package:qparking/core/utils/app_alerts.dart';
 import 'package:qparking/core/widgets/app_icon.dart';
 import 'package:qparking/core/icons/app_icons.dart';
+import 'package:qparking/core/widgets/slide_menu.dart';
+import '../providers/subscription_provider.dart';
 
-// Standard border radius
+// Standard border radius constant
 const double _kStandardBorderRadius = 12.0;
 
-// --- MOCK DATA MODELS ---
+// --- Internal Data Models ---
 class _FeatureItem {
   final String label;
   final bool included;
@@ -47,44 +52,43 @@ class _SubscriptionPlan {
   });
 }
 
-class SubscriptionsScreen extends StatelessWidget {
+class SubscriptionsScreen extends ConsumerWidget {
   const SubscriptionsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Check global subscription status
+    final bool hasPlan = ref.watch(hasActivePlanProvider);
     const String userInitials = "DM";
 
-    // --- DEFINING THE 2 PLANS ---
+    // Defining the 2 mandatory plans
     final List<_SubscriptionPlan> plans = [
-      // 1. BASIC PLAN
       _SubscriptionPlan(
         name: "Plan Básico",
         priceLabel: "\$119 / mes",
         tag: "Uso estándar",
-        headerColor: AppTheme.primary, // Dark Blue (Standard)
+        headerColor: AppTheme.primary,
         buttonText: "Contratar Básico",
         features: [
           _FeatureItem("Generación de códigos QR"),
           _FeatureItem("Acceso a estacionamientos"),
           _FeatureItem("Pagos con tarjeta"),
-          _FeatureItem("Soporte técnico"),
-          _FeatureItem("Historial de Actividad", included: false), // NOT INCLUDED
+          _FeatureItem("Soporte técnico estándar"),
+          _FeatureItem("Historial de Actividad", included: false),
         ],
       ),
-
-      // 2. PREMIUM PLAN
       _SubscriptionPlan(
         name: "Plan Premium",
         priceLabel: "\$349 / mes",
         tag: "Acceso Total",
-        headerColor: AppTheme.secondary, // Orange/Red (Highlight)
+        headerColor: AppTheme.secondary,
         buttonText: "Contratar Premium",
         features: [
-          _FeatureItem("Generación de códigos QR "),
-          _FeatureItem("Acceso a estacionamientos"),
-          _FeatureItem("Pagos con tarjeta"),
-          _FeatureItem("Soporte técnico"),
-          _FeatureItem("Historial de Actividad Completo"), // INCLUDED
+          _FeatureItem("Generación de códigos QR ilimitados"),
+          _FeatureItem("Acceso a todos los estacionamientos"),
+          _FeatureItem("Pagos con tarjeta preferente"),
+          _FeatureItem("Soporte técnico prioritario 24/7"),
+          _FeatureItem("Historial de Actividad Completo"),
         ],
       ),
     ];
@@ -92,15 +96,14 @@ class SubscriptionsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppTheme.gray50,
 
-      // --- DARK HEADER ---
+      // --- STANDARD DARK HEADER ---
       appBar: AppBar(
         backgroundColor: AppTheme.primary,
         elevation: 0,
         centerTitle: true,
-        leading: IconButton(
-          icon: const AppIcon(name: AppIconName.back, color: AppTheme.white),
-          onPressed: () => context.pop(),
-        ),
+        // MANDATORY LOGIC: Hide back button if user is forced to be here (no plan)
+        automaticallyImplyLeading: hasPlan,
+        iconTheme: const IconThemeData(color: AppTheme.white),
         title: const Text(
           'Suscripciones',
           style: TextStyle(
@@ -135,6 +138,9 @@ class SubscriptionsScreen extends StatelessWidget {
           ),
         ],
       ),
+
+      // MANDATORY LOGIC: Only show side menu if the user has an active subscription
+      drawer: hasPlan ? const SlideMenu() : null,
 
       body: SafeArea(
         child: SingleChildScrollView(
@@ -173,11 +179,10 @@ class SubscriptionsScreen extends StatelessWidget {
 
               const SizedBox(height: 32),
 
-              // Footer link
               Center(
                 child: TextButton(
                   onPressed: () {
-                    // TODO: Terms navigation
+                    // Terms and conditions navigation logic
                   },
                   child: const Text(
                     'Términos y condiciones de suscripción',
@@ -199,7 +204,7 @@ class _PlanCardWidget extends StatelessWidget {
 
   const _PlanCardWidget({required this.plan});
 
-  // Feature row builder
+  // Individual feature row builder
   Widget _buildFeatureRow(String text, bool included) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
@@ -209,7 +214,7 @@ class _PlanCardWidget extends StatelessWidget {
           Icon(
               included ? Icons.check_circle : Icons.cancel,
               size: 20,
-              color: included ? plan.headerColor : AppTheme.gray400 // Grey if not included
+              color: included ? plan.headerColor : AppTheme.gray400
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -218,7 +223,6 @@ class _PlanCardWidget extends StatelessWidget {
               style: TextStyle(
                 fontSize: 14,
                 color: included ? AppTheme.gray700 : AppTheme.gray400,
-                // Strike-through if excluded
                 decoration: included ? null : TextDecoration.lineThrough,
               ),
             ),
@@ -247,7 +251,7 @@ class _PlanCardWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // --- Colored Top Banner ---
+          // Visual top banner
           Container(
             height: 12,
             color: plan.headerColor,
@@ -258,7 +262,6 @@ class _PlanCardWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Name & Price
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -298,7 +301,7 @@ class _PlanCardWidget extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
-                    color: plan.headerColor, // Price matches theme color
+                    color: plan.headerColor,
                   ),
                 ),
 
@@ -307,12 +310,12 @@ class _PlanCardWidget extends StatelessWidget {
                   child: Divider(color: AppTheme.gray200),
                 ),
 
-                // --- Features List ---
+                // Map features list to widgets
                 ...plan.features.map((f) => _buildFeatureRow(f.label, f.included)),
 
                 const SizedBox(height: 24),
 
-                // --- CTA Button ---
+                // Purchase CTA Button
                 SizedBox(
                   height: 52,
                   width: double.infinity,
@@ -330,12 +333,13 @@ class _PlanCardWidget extends StatelessWidget {
                         )
                     ),
                     onPressed: () {
-                      // Standard Alert Success 7.4.1
+                      // Trigger standardized success alert before navigation
                       AppAlerts.showSuccess(
                         context: context,
                         title: "¡Excelente elección!",
-                        message: "Has seleccionado el ${plan.name}. Serás redirigido al pago.",
+                        message: "Has seleccionado el ${plan.name}. Serás redirigido al registro de pago.",
                         onOk: () {
+                          // Navigate to the bank card setup screen
                           context.push('/bank_card');
                         },
                       );
